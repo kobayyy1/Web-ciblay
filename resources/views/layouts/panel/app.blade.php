@@ -56,7 +56,7 @@
                     Researchers
                 </a>
 
-                <a href="#" @class([
+                <a href="{{ route('information.index') }}" @class([
                     'transition-colors pb-1',
                     'text-[#0f2440] font-semibold border-b-2 border-orange-500' => request()->routeIs(
                         'information*'),
@@ -65,7 +65,7 @@
                     Information
                 </a>
 
-                <a href="#" @class([
+                <a href="{{ route('about.index') }}" @class([
                     'transition-colors pb-1',
                     'text-[#0f2440] font-semibold border-b-2 border-orange-500' => request()->routeIs(
                         'about*'),

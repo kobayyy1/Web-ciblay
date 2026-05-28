@@ -20,24 +20,14 @@
                             LPPM
                         </span>
                         <div class="flex items-center gap-1.5">
-                            <div class="grid grid-cols-2 gap-0.5">
-                                <span class="w-2.5 h-2.5 bg-[#ff9f1c] rounded-[2px]"></span>
-                                <span class="w-2.5 h-2.5 bg-transparent"></span>
-                                <span class="w-2.5 h-2.5 bg-transparent"></span>
-                                <span class="w-2.5 h-2.5 bg-[#ff9f1c] rounded-[2px]"></span>
-                            </div>
-                            <div class="grid grid-cols-2 gap-0.5">
-                                <span class="w-2.5 h-2.5 bg-[#ff9f1c] rounded-[2px]"></span>
-                                <span class="w-2.5 h-2.5 bg-transparent"></span>
-                                <span class="w-2.5 h-2.5 bg-transparent"></span>
-                                <span class="w-2.5 h-2.5 bg-[#ff9f1c] rounded-[2px]"></span>
-                            </div>
-                            <div class="grid grid-cols-2 gap-0.5">
-                                <span class="w-2.5 h-2.5 bg-[#ff9f1c] rounded-[2px]"></span>
-                                <span class="w-2.5 h-2.5 bg-transparent"></span>
-                                <span class="w-2.5 h-2.5 bg-transparent"></span>
-                                <span class="w-2.5 h-2.5 bg-[#ff9f1c] rounded-[2px]"></span>
-                            </div>
+                            @for ($j = 0; $j < 3; $j++)
+                                <div class="grid grid-cols-2 gap-0.5">
+                                    <span class="w-2.5 h-2.5 bg-[#ff9f1c] rounded-[2px]"></span>
+                                    <span class="w-2.5 h-2.5 bg-transparent"></span>
+                                    <span class="w-2.5 h-2.5 bg-transparent"></span>
+                                    <span class="w-2.5 h-2.5 bg-[#ff9f1c] rounded-[2px]"></span>
+                                </div>
+                            @endfor
                         </div>
                     </div>
                 </h1>
@@ -101,12 +91,13 @@
                     </span>
                 </div>
 
-                <div class="flex items-center gap-3 text-[#0f2440]">
+                {{-- UKURAN IKON BERITA DIPERBESAR DI SINI (w-6 -> w-10) --}}
+                <div class="flex items-center gap-4 text-[#0f2440]">
                     <a href="#" class="block opacity-80 hover:opacity-100 transition-opacity">
-                        <img src="{{ asset('images/icon-arrow.png') }}" alt="Download" class="w-6 h-6 object-contain">
+                        <img src="{{ asset('images/icon-arrow.png') }}" alt="Download" class="w-10 h-10 object-contain">
                     </a>
                     <a href="#" class="block opacity-80 hover:opacity-100 transition-opacity">
-                        <img src="{{ asset('images/icon-doc.png') }}" alt="Document" class="w-6 h-6 object-contain">
+                        <img src="{{ asset('images/icon-doc.png') }}" alt="Document" class="w-10 h-10 object-contain">
                     </a>
                 </div>
             </div>
@@ -161,9 +152,8 @@
                         <div class="space-y-6">
                             <template x-for="(item, index) in beritaList" :key="index">
                                 <div @click="activeSlide = index" class="relative pl-6 group cursor-pointer">
-                                    <div :class="activeSlide === index ?
-                                        'border-[#0f2440] bg-white scale-110 ring-4 ring-blue-50' :
-                                        'border-gray-300 bg-white'"
+                                    <div :class="activeSlide === index ? 'border-[#0f2440]' +
+                                        ' bg-white scale-110 ring-4 ring-blue-50' : 'border-gray-300 bg-white'"
                                         class="absolute left-[-22px] top-1 w-4 h-4 rounded-full border-2 transition-all duration-300 z-10 flex items-center justify-center">
                                         <div x-show="activeSlide === index" class="w-1.5 h-1.5 rounded-full bg-[#0f2440]">
                                         </div>
@@ -296,8 +286,7 @@
                     <div class="flex items-center gap-3 overflow-hidden w-full lg:max-w-[600px] py-3">
                         <template x-for="(media, index) in mediaList" :key="index">
                             <div @click="activeMedia = index"
-                                :class="activeMedia === index ?
-                                    'border-2 border-[#ff9f1c] opacity-100 shadow-2xl z-10' :
+                                :class="activeMedia === index ? 'border-2 border-[#ff9f1c] opacity-100 shadow-2xl z-10' :
                                     'border border-white/10 opacity-40 hover:opacity-70'"
                                 class="relative w-[160px] sm:w-[185px] h-[120px] sm:h-[140px] rounded-xl overflow-hidden cursor-pointer transition-all duration-300 bg-slate-800 flex-shrink-0">
                                 <img :src="media.image" class="w-full h-full object-cover">
@@ -356,19 +345,14 @@
                     </span>
                 </div>
 
-                <div class="flex items-center gap-3 text-[#0f2440]">
-                    <a href="#" class="block opacity-80 hover:opacity-100 transition-opacity">
-                        <img src="{{ asset('images/icon-arrow.png') }}" alt="Download" class="w-6 h-6 object-contain">
-                    </a>
-                    <a href="#" class="block opacity-80 hover:opacity-100 transition-opacity">
-                        <img src="{{ asset('images/icon-doc.png') }}" alt="Document" class="w-6 h-6 object-contain">
-                    </a>
+                <div class="flex items-center justify-end gap-4 mb-2">
+                    <img src="{{ asset('images/icon-arrow.png') }}" alt="Aksen" class="w-8 h-8 object-contain">
+                    <img src="{{ asset('images/icon-doc.png') }}" alt="Docs" class="h-12 w-auto object-contain">
                 </div>
             </div>
 
         </div>
 
-        {{-- Horizontal scroll cards --}}
         <div x-ref="infoSlider"
             class="flex items-center gap-6 overflow-x-auto pb-6 pt-2 scrollbar-none w-full snap-x snap-mandatory scroll-smooth">
             <template x-for="(info, index) in infoList" :key="index">
