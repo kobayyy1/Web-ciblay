@@ -9,30 +9,41 @@ use Illuminate\Support\Facades\Storage;
 
 class BeritaController extends Controller
 {
+    /**
+     * Menampilkan daftar berita
+     */
     public function index()
     {
         $beritas = Berita::latest()->paginate(10);
         return view('admin.berita.index', compact('beritas'));
     }
 
+    /**
+     * Menampilkan form tambah berita
+     */
     public function create()
     {
         return view('admin.berita.create');
     }
 
+    /**
+     * Menyimpan berita baru
+     */
     public function store(Request $request)
     {
         $request->validate([
-            'title'      => 'required|string|max:255',
+            // TAMBAHKAN 'unique:beritas,title' DI SINI
+            'title'      => 'required|string|max:255|unique:beritas,title',
             'content'    => 'required',
             'image'      => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'start_date' => 'nullable|date',
-            'end_date'   => 'nullable|date|after_or_equal:start_date', // Logika: Tanggal selesai gak boleh sebelum tanggal mulai
+            'end_date'   => 'nullable|date|after_or_equal:start_date',
         ], [
+            // TAMBAHKAN PESAN CUSTOM BIAR INPUT FORM-NYA INTERAKTIF
+            'title.unique'            => 'Judul berita ini sudah ada, Jon! Ganti judul lain biar slug-nya gak bentrok.',
             'end_date.after_or_equal' => 'Tanggal selesai aktif tidak boleh mendahului tanggal mulai, Jon!',
         ]);
 
-        // Ambil data termasuk tanggal mulai dan selesai
         $data = $request->only('title', 'content', 'start_date', 'end_date');
 
         if ($request->hasFile('image')) {
@@ -42,5 +53,61 @@ class BeritaController extends Controller
         Berita::create($data);
 
         return redirect()->route('admin.berita.index')->with('status', 'Berita dengan masa aktif berhasil diterbitkan!');
+    }
+
+    /**
+     * Menampilkan form edit berita
+     */
+    public function edit($id)
+    {
+        $berita = Berita::findOrFail($id);
+        return view('admin.berita.edit', compact('berita')); // Nanti tinggal bikin file edit.blade.php
+    }
+
+    /**
+     * Memproses update data berita
+     */
+    public function update(Request $request, $id)
+    {
+        $berita = Berita::findOrFail($id);
+
+        $request->validate([
+            'title'      => 'required|string|max:255',
+            'content'    => 'required',
+            'image'      => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'start_date' => 'nullable|date',
+            'end_date'   => 'nullable|date|after_or_equal:start_date',
+        ]);
+
+        $data = $request->only('title', 'content', 'start_date', 'end_date');
+
+        if ($request->hasFile('image')) {
+            // Hapus gambar lama dari storage jika user upload gambar baru
+            if ($berita->image) {
+                Storage::disk('public')->delete($berita->image);
+            }
+            $data['image'] = $request->file('image')->store('berita', 'public');
+        }
+
+        $berita->update($data);
+
+        return redirect()->route('admin.berita.index')->with('status', 'Berita berhasil diperbarui, Jon!');
+    }
+
+    /**
+     * Memproses hapus data berita (INI BIANG KEROKNYA TADI)
+     */
+    public function destroy($id)
+    {
+        $berita = Berita::findOrFail($id);
+
+        // Hapus berkas file gambar dari folder storage public sebelum datanya dihapus
+        if ($berita->image) {
+            Storage::disk('public')->delete($berita->image);
+        }
+
+        $berita->delete();
+
+        return redirect()->route('admin.berita.index')->with('status', 'Berita berhasil dihapus permanent, Jon!');
     }
 }

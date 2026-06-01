@@ -1,9 +1,11 @@
 @extends('layouts.panel.app')
 
 @section('content')
+    {{-- =====================================================================
+         SECTION 1: DATA PENELITIAN (DOKUMENTASI UTAMA)
+         ===================================================================== --}}
     <section class="bg-white pt-16 pb-0">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
             <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8 border-b-2 border-transparent">
                 <div class="flex flex-col items-start gap-2 text-left">
                     <div class="flex items-center gap-4 select-none">
@@ -31,11 +33,10 @@
                 </div>
             </div>
 
+            {{-- Card Detail Besar --}}
             <div
-                class="flex flex-col md:flex-row w-full bg-white rounded-[2.5rem] overflow-hidden shadow-2xl h-[500px] md:h-[550px]">
-
+                class="flex flex-col md:flex-row w-full bg-white rounded-[2.5rem] overflow-hidden shadow-2xl h-auto md:h-[550px]">
                 <div class="w-full md:w-[60%] lg:w-[65%] flex bg-[#0f2440] flex-shrink-0">
-
                     <div class="w-24 sm:w-28 flex-shrink-0 flex justify-center py-6 sm:py-8 overflow-visible">
                         <div
                             class="bg-[#ff9f1c] w-10 sm:w-11 rounded-full h-full flex flex-col items-center justify-between py-6 relative overflow-visible shadow-inner">
@@ -51,59 +52,29 @@
                                     Institut Seni Indonesia Padangpanjang
                                 </p>
                                 <img src="{{ asset('images/icon/globe.png') }}" alt="Globe"
-                                    class="w-5 h-5 object-contain opacity-90 mx-auto">
+                                    class="w-5 h-5 object-contain invert opacity-90 mx-auto">
                             </div>
                         </div>
                     </div>
-
                     <div class="flex-1 flex flex-col h-full pt-6 sm:pt-8 pb-4 pr-4 flex-shrink-0">
                         <div class="flex-1 w-full relative rounded-3xl overflow-hidden bg-gray-800 shadow-inner">
-                            <img src="{{ asset('images/berita1.png') }}" alt="Sekretariat UTBK SNBT 2026"
+                            <img src="{{ asset('images/berita1.png') }}" alt="Sekretariat"
                                 class="absolute inset-0 w-full h-full object-cover">
                         </div>
-                        <div class="flex items-center justify-center gap-2 pt-4 select-none">
-                            <span class="w-6 h-2 rounded-full bg-[#002e62] transition-all"></span>
-                            <span class="w-2.5 h-2.5 rounded-full bg-gray-400 opacity-60"></span>
-                            <span class="w-2.5 h-2.5 rounded-full bg-gray-400 opacity-60"></span>
-                        </div>
                     </div>
-
                 </div>
-                <div class="flex-1 flex flex-row h-full p-6 sm:p-8 pl-6 bg-white text-gray-800 relative overflow-hidden">
 
+                <div class="flex-1 flex flex-row h-full p-6 sm:p-8 pl-6 bg-white text-gray-800 relative overflow-hidden">
                     <div id="descScroll" class="flex-1 overflow-y-auto h-full pr-6 text-left space-y-4 scroll-smooth"
                         style="scrollbar-width: none; -ms-overflow-style: none;" onscroll="updateCustomScroll(this)">
-
-                        <h3 class="text-xl font-black text-[#0f2440] uppercase tracking-tight mb-2"
-                            style="font-family: 'Roboto', sans-serif;">
-                            Detail Dokumentasi Penelitian
-                        </h3>
-
-                        <p class="text-sm sm:text-base text-gray-600 leading-relaxed font-normal">
-                            Masyarakat Viqueque di Oebelo cenderung mempertahankan penggunaan bahasa Tetun (khususnya dialek
-                            yang mereka bawa dari Viqueque) dalam ranah domestik dan komunitas.
-                        </p>
-                        <p class="text-sm sm:text-base text-gray-600 leading-relaxed font-normal">
-                            Sebagai komunitas pengungsi yang menetap di Indonesia, mereka berinteraksi dalam lingkungan
-                            multilingual, yang melibatkan penggunaan bahasa Indonesia dan bahasa lokal Kupang.
-                        </p>
-                        <p class="text-sm sm:text-base text-gray-600 leading-relaxed font-normal">
-                            Dokumentasi koordinasi dari pihak Institut Seni Indonesia Padangpanjang ini sangat krusial dalam
-                            memetakan pertahanan sosiokultural bahasa daerah asal mereka.
-                        </p>
-
-                        <p class="text-sm sm:text-base text-gray-600 leading-relaxed font-normal">
-                            Langkah selanjutnya dari LPPM Institut Seni Indonesia Padangpanjang adalah menyusun modul
-                            pembelajaran seni budaya kontekstual yang dapat diintegrasikan ke dalam kurikulum lokal
-                            masyarakat terdampak di kawasan tersebut.
-                        </p>
-                        <p class="text-sm sm:text-base text-gray-600 leading-relaxed font-normal">
-                            Melalui pendekatan seni, diharapkan proses asimilasi budaya dan pemeliharaan bahasa ibu dapat
-                            berjalan beriringan tanpa menghilangkan esensi identitas asli sosiolinguistik mereka. Evaluasi
-                            berkala akan terus digulirkan setiap semester oleh tim peneliti utama.
-                        </p>
+                        <h3 class="text-xl font-black text-[#0f2440] uppercase tracking-tight mb-2">Detail Dokumentasi
+                            Penelitian</h3>
+                        <p class="text-sm sm:text-base text-gray-600 leading-relaxed">Masyarakat Viqueque di Oebelo
+                            cenderung mempertahankan penggunaan bahasa Tetun dalam ranah domestik dan komunitas.</p>
+                        <p class="text-sm sm:text-base text-gray-600 leading-relaxed">Dokumentasi koordinasi dari pihak ISI
+                            Padangpanjang ini sangat krusial dalam memetakan pertahanan sosiokultural bahasa daerah asal
+                            mereka.</p>
                     </div>
-
                     <div
                         class="w-2 h-full flex flex-col items-center justify-start py-2 select-none relative flex-shrink-0">
                         <div class="w-1.5 h-full bg-gray-100 rounded-full absolute inset-0"></div>
@@ -112,16 +83,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="w-2 h-full flex flex-col items-center justify-start py-2 select-none relative flex-shrink-0">
-                    <div class="w-1.5 h-full bg-[#002e62] rounded-full absolute inset-0 opacity-80"></div>
-                    <div class="w-1.5 h-2/5 bg-gray-300 rounded-full absolute top-0 shadow-sm"></div>
-                </div>
             </div>
-
-        </div>
         </div>
     </section>
 
+    {{-- Divider Bar --}}
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-white py-12">
         <div class="grid grid-cols-12 w-full h-3 rounded-full overflow-hidden shadow-sm">
             <div class="col-span-5 bg-[#ff9f1c]"></div>
@@ -129,10 +95,25 @@
         </div>
     </div>
 
-    <section x-data="newsComponent()" class="bg-white pt-0 pb-16">
+
+    {{-- =====================================================================
+         BERITA SECTION
+         ===================================================================== --}}
+    @php
+        $formattedBeritas = $beritas->map(function ($berita) {
+            return [
+                'title' => $berita->title,
+                'subTitle' => \Illuminate\Support\Str::limit(strip_tags($berita->content), 120, '...'),
+                'date' => \Carbon\Carbon::parse($berita->start_date ?? $berita->created_at)->format('d-m-Y'),
+                'image' => $berita->image ? asset('storage/' . $berita->image) : asset('images/berita1.png'),
+            ];
+        });
+    @endphp
+
+    <section x-data="newsComponent({{ $formattedBeritas->toJson() }})" class="bg-white py-16 border-t border-gray-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-            {{-- Section Header --}}
+            {{-- Section Header Berita --}}
             <div class="flex items-center justify-between mb-8">
                 <div class="flex flex-col">
                     <div class="flex items-center gap-3 mb-1 select-none">
@@ -148,7 +129,8 @@
                             </template>
                         </div>
                     </div>
-                    <h2 class="text-4xl font-extrabold text-[#0f2440] tracking-tight relative pb-2">
+                    <h2 class="text-4xl font-extrabold text-[#0f2440] tracking-tight relative pb-2 uppercase"
+                        style="font-family: 'Roboto', sans-serif;">
                         Berita
                         <span class="absolute bottom-0 left-0 w-16 h-0.5 bg-[#0f2440] border-dashed border-b"></span>
                     </h2>
@@ -164,177 +146,122 @@
                 </div>
             </div>
 
-            {{-- ===== DATA DUMMY ===== --}}
-            @php
-                $penelitians = [
-                    [
-                        'gambar' => 'images/berita1.png',
-                        'judul' => 'Pilihan Bahasa Masyarakat Viqueque di Desa Oebelo',
-                        'sub' => 'Studi Kasus Identitas Bahasa di Kalangan Komunitas Pengungsi Eks Timor Timur',
-                    ],
-                    [
-                        'gambar' => 'images/berita1.png',
-                        'judul' => 'Revitalisasi Kesenian Tradisional Minangkabau di Era Digital',
-                        'sub' => 'Kajian Etnografi terhadap Pertunjukan Randai di Kota Padangpanjang',
-                    ],
-                    [
-                        'gambar' => 'images/berita1.png',
-                        'judul' => 'Transformasi Estetika Batik Tanah Liek dalam Konteks Pariwisata',
-                        'sub' => 'Analisis Visual dan Semiotika pada Produk Kerajinan Lokal Sumatera Barat',
-                    ],
-                    [
-                        'gambar' => 'images/berita1.png',
-                        'judul' => 'Pergeseran Fungsi Tari Piring dalam Upacara Adat Minangkabau',
-                        'sub' => 'Studi Komparatif antara Generasi Muda dan Generasi Tua di Solok',
-                    ],
-                    [
-                        'gambar' => 'images/berita1.png',
-                        'judul' => 'Dokumentasi Musik Tradisional Talempong sebagai Warisan Budaya',
-                        'sub' => 'Pendekatan Etnomusikologi dalam Pelestarian Alat Musik Daerah',
-                    ],
-                    [
-                        'gambar' => 'images/berita1.png',
-                        'judul' => 'Ekspresi Identitas Budaya Melalui Motif Songket Silungkang',
-                        'sub' => 'Perspektif Antropologi Seni dalam Komunitas Penenun di Sawah Lunto',
-                    ],
-                    [
-                        'gambar' => 'images/berita1.png',
-                        'judul' => 'Peran Seni Pertunjukan dalam Pemberdayaan Ekonomi Kreatif',
-                        'sub' => 'Studi Kasus Festival Budaya di Kabupaten Agam, Sumatera Barat',
-                    ],
-                    [
-                        'gambar' => 'images/berita1.png',
-                        'judul' => 'Kajian Makna Simbolik pada Arsitektur Rumah Gadang',
-                        'sub' => 'Interpretasi Ornamen dan Ragam Hias dalam Tradisi Visual Minangkabau',
-                    ],
-                    [
-                        'gambar' => 'images/berita1.png',
-                        'judul' => 'Adaptasi Sastra Lisan Kaba dalam Media Kontemporer',
-                        'sub' => 'Analisis Naratif dan Penerimaan Khalayak pada Platform Digital',
-                    ],
-                ];
-                $perPage = 3; // TESTING: 3 item per halaman → pagination langsung terlihat
-                $total = count($penelitians);
-                $totalPages = (int) ceil($total / $perPage);
-            @endphp
+            {{-- Layout Grid Berita --}}
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
 
-            {{-- ===== CAROUSEL WRAPPER ===== --}}
-            <div id="carousel-wrapper">
-
-                {{-- Halaman carousel --}}
-                @for ($page = 0; $page < $totalPages; $page++)
-                    <div class="carousel-page {{ $page === 0 ? '' : 'hidden' }}" data-page="{{ $page }}">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-                            @foreach (array_slice($penelitians, $page * $perPage, $perPage) as $i => $item)
-                                @php $isFirst = ($page === 0 && $i === 0); @endphp
-                                <div
-                                    class="w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-xl bg-gray-900 relative
-                                            {{ $isFirst ? 'border-2 border-purple-600' : 'border border-gray-100 hover:shadow-lg' }}
-                                            cursor-pointer group transition-all duration-300">
-
-                                    <div
-                                        class="absolute inset-0 bg-gradient-to-t from-[#0f2440]/95 via-transparent to-transparent z-10">
+                {{-- Left: Main Image Card --}}
+                <div class="lg:col-span-6 flex flex-col items-center w-full">
+                    <div
+                        class="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-md group border border-gray-100 bg-gray-900">
+                        <div class="absolute inset-0 w-full h-full cursor-pointer">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-[#0f2440]/90 via-transparent to-transparent z-10">
+                            </div>
+                            <div class="absolute inset-0 bg-slate-800 z-0"></div>
+                            <img :src="beritaList[activeSlide].image" :alt="beritaList[activeSlide].title"
+                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 relative z-10">
+                            <div class="absolute bottom-0 inset-x-0 p-6 z-20 text-left">
+                                <div class="flex items-center gap-1.5 mb-2">
+                                    <div class="grid grid-cols-2 gap-0.5">
+                                        <div class="w-1.5 h-1.5 bg-[#ff9f1c]"></div>
+                                        <div class="w-1.5 h-1.5 bg-[#ff9f1c]"></div>
+                                        <div class="w-1.5 h-1.5 bg-[#ff9f1c]"></div>
+                                        <div class="w-1.5 h-1.5 bg-transparent"></div>
                                     </div>
-
-                                    <img src="{{ asset($item['gambar']) }}" alt="{{ $item['judul'] }}"
-                                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-
-                                    <div class="absolute bottom-0 inset-x-0 p-5 z-20 text-left">
-                                        <div class="flex items-start gap-1.5 mb-2">
-                                            <div class="grid grid-cols-2 gap-0.5 mt-1 flex-shrink-0">
-                                                <span class="w-1.5 h-1.5 bg-[#ff9f1c] rounded-[1px]"></span>
-                                                <span class="w-1.5 h-1.5 bg-transparent"></span>
-                                                <span class="w-1.5 h-1.5 bg-transparent"></span>
-                                                <span class="w-1.5 h-1.5 bg-[#ff9f1c] rounded-[1px]"></span>
-                                            </div>
-                                            <h3 class="text-white font-extrabold text-sm sm:text-base leading-snug">
-                                                {{ $item['judul'] }}
-                                            </h3>
-                                        </div>
-                                        <p class="text-gray-300 text-[10px] sm:text-xs font-light pl-4 leading-normal">
-                                            {{ $item['sub'] }}
-                                        </p>
-                                    </div>
-
-                                    <span
-                                        class="absolute bottom-3 right-4 text-[8px] text-gray-400 opacity-60 font-light flex items-center gap-1 z-20">
-                                        Institut Seni Indonesia Padangpanjang
-                                        <svg class="w-2.5 h-2.5 text-[#ff9f1c]" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
-                                        </svg>
-                                    </span>
+                                    <h3 class="text-white font-bold text-sm sm:text-base md:text-lg leading-snug lg:max-w-md"
+                                        x-text="beritaList[activeSlide].title"></h3>
                                 </div>
-                            @endforeach
+                                <p class="text-gray-300 text-[11px] sm:text-xs font-light pl-4"
+                                    x-text="beritaList[activeSlide].subTitle"></p>
+                            </div>
                         </div>
                     </div>
-                @endfor
 
-            </div>
-            {{-- /CAROUSEL WRAPPER --}}
+                    {{-- Dot indicator bawah gambar --}}
+                    <div class="flex items-center gap-2 mt-4">
+                        <template x-for="(item, index) in beritaList" :key="index">
+                            <button @click="activeSlide = index"
+                                :class="activeSlide === index ? 'w-6 bg-[#0f2440]' : 'w-2 bg-gray-300'"
+                                class="h-2 rounded-full transition-all duration-300"></button>
+                        </template>
+                    </div>
+                </div>
 
-            {{-- ===== PAGINATION + AKSEN ===== --}}
-            <div
-                class="flex flex-col sm:flex-row items-center justify-between gap-6 border-t border-gray-100 pt-8 relative">
+                {{-- Right: Timeline List (GARIS UTAMA IKUT MELUNCUR SEIRAMA KLIK JON ADY) --}}
+                <div class="lg:col-span-6 grid grid-cols-12 gap-4 w-full relative lg:aspect-[4/3] animate-fade-in">
 
-                {{-- Spacer kiri --}}
-                <div class="hidden sm:block w-24"></div>
+                    {{-- Boks Pembungkus List --}}
+                    <div class="col-span-11 relative h-full">
+                        {{-- Area Box Scroll Teks Berita (Padding left disesuaikan pl-10 untuk jalur rel internal) --}}
+                        <div class="w-full h-full overflow-y-auto pl-10 pr-2 flex flex-col scroll-smooth"
+                            style="scrollbar-width: none; -ms-overflow-style: none;">
+                            <div class="space-y-0 h-full">
+                                <template x-for="(item, index) in beritaList" :key="index">
+                                    <div @click="activeSlide = index"
+                                        class="w-full h-[33.33%] flex-shrink-0 flex flex-col justify-center relative group cursor-pointer border-b border-gray-100/50 last:border-0 py-2">
 
-                {{-- Pagination controls --}}
-                <div class="flex items-center gap-2 select-none" id="pagination-controls">
+                                        {{-- ─── TRICK SAKTI: SEGMEN GARIS DI DALAM LOOP (IKUT SCROLL & BERHENTI PAS DI TOMBOL AKTIF) ─── --}}
+                                        <div class="absolute left-[-23px] top-0 bottom-0 w-1.5 pointer-events-none flex flex-col overflow-hidden"
+                                            :class="index === 0 ? 'rounded-t-full' : (index === beritaList.length - 1 ?
+                                                'rounded-b-full' : '')">
+                                            {{-- Paruh Atas Segmen Garis --}}
+                                            <div class="w-full h-1/2 transition-colors duration-300"
+                                                :class="index <= activeSlide ? 'bg-[#0f2440]' : 'bg-slate-200'"></div>
+                                            {{-- Paruh Bawah Segmen Garis --}}
+                                            <div class="w-full h-1/2 transition-colors duration-300"
+                                                :class="index < activeSlide ? 'bg-[#0f2440]' : 'bg-slate-200'"></div>
+                                        </div>
 
-                    {{-- Prev --}}
-                    <button id="btn-prev"
-                        class="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center text-[#0f2440] hover:bg-[#0f2440] hover:text-white transition-all focus:outline-none shadow-sm disabled:opacity-30 disabled:cursor-not-allowed"
-                        disabled>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3"
-                            stroke="currentColor" class="w-3.5 h-3.5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-                        </svg>
-                    </button>
+                                        {{-- Tombol Bulat Indikator Menu Berita (Center Alignment Presisi di Nilai left-[-30px]) --}}
+                                        <div :class="activeSlide === index ?
+                                            'border-[#0f2440] bg-white scale-110 ring-4 ring-[#ff9f1c]/30' :
+                                            'border-gray-300 bg-white group-hover:border-[#0f2440]'"
+                                            class="absolute left-[-30px] top-1/2 -translate-y-1/2 w-5 h-5 rounded-full border-2 transition-all duration-300 z-10 flex items-center justify-center shadow-sm">
+                                            <div x-show="activeSlide === index"
+                                                class="w-2.5 h-2.5 rounded-full bg-[#0f2440]"></div>
+                                        </div>
 
-                    {{-- Page number buttons --}}
-                    <div class="flex items-center gap-1.5 text-xs font-bold font-mono" id="page-numbers">
-                        @for ($p = 0; $p < $totalPages; $p++)
-                            <button
-                                class="page-btn w-8 h-8 rounded-lg transition-colors
-                                       {{ $p === 0 ? 'bg-[#0f2440] text-white' : 'text-gray-400 hover:bg-gray-100 hover:text-[#0f2440]' }}"
-                                data-target="{{ $p }}">
-                                {{ str_pad($p + 1, 2, '0', STR_PAD_LEFT) }}
-                            </button>
-                        @endfor
+                                        {{-- Konten Teks --}}
+                                        <div class="text-left w-full">
+                                            <h3 :class="activeSlide === index ?
+                                                'text-[#0f2440] font-extrabold underline decoration-sky-400 decoration-2 underline-offset-4' :
+                                                'text-gray-400 font-bold group-hover:text-[#0f2440]'"
+                                                class="text-sm sm:text-base md:text-lg transition-all duration-300 leading-tight mb-1 line-clamp-1"
+                                                x-text="item.title"></h3>
+                                            <p class="text-gray-400 text-xs font-normal leading-normal mb-1 line-clamp-2"
+                                                x-text="item.subTitle"></p>
+                                            <span class="text-[10px] text-gray-400 flex items-center gap-1">
+                                                <span class="w-0.5 h-2.5 bg-[#ff9f1c]"></span>
+                                                Upload <span x-text="item.date" class="ml-1"></span>
+                                            </span>
+                                        </div>
+
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
                     </div>
 
-                    {{-- Next --}}
-                    <button id="btn-next"
-                        class="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center text-[#0f2440] hover:bg-[#0f2440] hover:text-white transition-all focus:outline-none shadow-sm {{ $totalPages <= 1 ? 'disabled:opacity-30 disabled:cursor-not-allowed' : '' }}"
-                        {{ $totalPages <= 1 ? 'disabled' : '' }}>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3"
-                            stroke="currentColor" class="w-3.5 h-3.5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-                        </svg>
-                    </button>
-
-                </div>
-
-                {{-- Aksen gambar kanan --}}
-                <div class="flex items-center justify-center select-none self-end lg:self-auto">
-                    <img src="{{ asset('images/icon/arrow-bold.png') }}" alt="Aksen"
-                        class="w-36 h-36 object-contain transform -rotate-180 drop-shadow-md">
+                    {{-- Scrollbar Dekoratif Paling Kanan --}}
+                    <div class="col-span-1 hidden lg:flex justify-end h-full pl-2">
+                        <div
+                            class="relative w-4 bg-slate-100 border border-slate-200/50 rounded-full h-full overflow-hidden shadow-inner">
+                            <div class="absolute w-full bg-[#0f2440] rounded-full h-20 transition-all duration-500 shadow-md"
+                                :style="`top: ${beritaList.length > 1 ? (activeSlide / (beritaList.length - 1)) * 75 : 0}%`">
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </div>
-            {{-- /PAGINATION --}}
-
         </div>
     </section>
-    </div>
 
-    {{-- ===== CAROUSEL SCRIPT ===== --}}
+    {{-- ===== SCRIPT CAROUSEL DATA PENELITIAN ===== --}}
     <script>
         (function() {
-            const totalPages = {{ $totalPages }};
+            // Kita kasih ?? 1 biar kalau variabelnya gak dikirim dari InfoController, dia gak mleduk lagi
+            const totalPages = {{ $totalPages ?? 1 }};
             let currentPage = 0;
 
             const pages = document.querySelectorAll('.carousel-page');
@@ -342,14 +269,15 @@
             const btnPrev = document.getElementById('btn-prev');
             const btnNext = document.getElementById('btn-next');
 
+            // Pengaman: Jika halaman Information ini emang gak punya carousel penelitian, stop script di sini
+            if (pages.length === 0) return;
+
             function goTo(page) {
                 if (page < 0 || page >= totalPages) return;
 
-                // Sembunyikan halaman aktif, tampilkan halaman baru
                 pages[currentPage].classList.add('hidden');
                 pages[page].classList.remove('hidden');
 
-                // Update style tombol nomor halaman
                 pageBtns[currentPage].classList.remove('bg-[#0f2440]', 'text-white');
                 pageBtns[currentPage].classList.add('text-gray-400', 'hover:bg-gray-100', 'hover:text-[#0f2440]');
 
@@ -358,43 +286,48 @@
 
                 currentPage = page;
 
-                // Update state disabled pada tombol prev/next
-                btnPrev.disabled = currentPage === 0;
-                btnNext.disabled = currentPage === totalPages - 1;
+                if (btnPrev) btnPrev.disabled = currentPage === 0;
+                if (btnNext) btnNext.disabled = currentPage === totalPages - 1;
 
-                // Scroll halus ke atas grid
                 document.getElementById('carousel-wrapper').scrollIntoView({
                     behavior: 'smooth',
                     block: 'start'
                 });
             }
 
-            // Tombol prev & next
-            btnPrev.addEventListener('click', () => goTo(currentPage - 1));
-            btnNext.addEventListener('click', () => goTo(currentPage + 1));
+            if (btnPrev) btnPrev.addEventListener('click', () => goTo(currentPage - 1));
+            if (btnNext) btnNext.addEventListener('click', () => goTo(currentPage + 1));
 
-            // Tombol nomor halaman
             pageBtns.forEach(btn => {
                 btn.addEventListener('click', () => goTo(parseInt(btn.dataset.target)));
             });
         })();
     </script>
+
+    {{-- ===== SCRIPT UTILS CORNER ===== --}}
     <script>
         function updateCustomScroll(element) {
             const customBar = document.getElementById('customBar');
-
-            // Hitung total tinggi yang bisa di-scroll
             const totalScrollHeight = element.scrollHeight - element.clientHeight;
 
             if (totalScrollHeight > 0) {
-                // Ambil persentase posisi scroll saat ini
                 const scrollPercentage = (element.scrollTop / totalScrollHeight) * 100;
-
-                // Batasi pergerakan tuas agar tidak kebablasan keluar dari rel bawah (maksimal top 75% karena tinggi tuas adalah 1/4 atau 25%)
                 const topPosition = (scrollPercentage * 0.75);
-
-                // Tembak posisinya ke style top CSS tuas customBar
                 customBar.style.top = topPosition + '%';
+            }
+        }
+
+        function newsComponent(laravelBerita) {
+            const defaultPlaceholder = [{
+                title: "Belum Ada Berita Terbaru, Dy!",
+                subTitle: "Silakan isi data berita utama dari dashboard control panel admin terlebih dahulu.",
+                date: "---",
+                image: "{{ asset('images/berita1.png') }}"
+            }];
+
+            return {
+                activeSlide: 0,
+                beritaList: laravelBerita && laravelBerita.length > 0 ? laravelBerita : defaultPlaceholder
             }
         }
     </script>

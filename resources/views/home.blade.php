@@ -62,10 +62,21 @@
     {{-- =====================================================================
          BERITA SECTION
          ===================================================================== --}}
-    <section x-data="newsComponent()" class="bg-white py-16 border-t border-gray-100">
+    @php
+        $formattedBeritas = $beritas->map(function ($berita) {
+            return [
+                'title' => $berita->title,
+                'subTitle' => \Illuminate\Support\Str::limit(strip_tags($berita->content), 120, '...'),
+                'date' => \Carbon\Carbon::parse($berita->start_date ?? $berita->created_at)->format('d-m-Y'),
+                'image' => $berita->image ? asset('storage/' . $berita->image) : asset('images/berita1.png'),
+            ];
+        });
+    @endphp
+
+    <section x-data="newsComponent({{ $formattedBeritas->toJson() }})" class="bg-white py-16 border-t border-gray-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-            {{-- Section Header --}}
+            {{-- Section Header Berita --}}
             <div class="flex items-center justify-between mb-8">
                 <div class="flex flex-col">
                     <div class="flex items-center gap-3 mb-1 select-none">
@@ -81,7 +92,8 @@
                             </template>
                         </div>
                     </div>
-                    <h2 class="text-4xl font-extrabold text-[#0f2440] tracking-tight relative pb-2">
+                    <h2 class="text-4xl font-extrabold text-[#0f2440] tracking-tight relative pb-2 uppercase"
+                        style="font-family: 'Roboto', sans-serif;">
                         Berita
                         <span class="absolute bottom-0 left-0 w-16 h-0.5 bg-[#0f2440] border-dashed border-b"></span>
                     </h2>
@@ -91,17 +103,13 @@
                     </span>
                 </div>
 
-                {{-- UKURAN IKON BERITA DIPERBESAR DI SINI (w-6 -> w-10) --}}
-                <div class="flex items-center gap-4 text-[#0f2440]">
-                    <a href="#" class="block opacity-80 hover:opacity-100 transition-opacity">
-                        <img src="{{ asset('images/icon-arrow.png') }}" alt="Download" class="w-10 h-10 object-contain">
-                    </a>
-                    <a href="#" class="block opacity-80 hover:opacity-100 transition-opacity">
-                        <img src="{{ asset('images/icon-doc.png') }}" alt="Document" class="w-10 h-10 object-contain">
-                    </a>
+                <div class="flex items-center justify-end gap-4 mb-2">
+                    <img src="{{ asset('images/icon-arrow.png') }}" alt="Aksen" class="w-8 h-8 object-contain">
+                    <img src="{{ asset('images/icon-doc.png') }}" alt="Docs" class="h-12 w-auto object-contain">
                 </div>
             </div>
 
+            {{-- Layout Grid Berita --}}
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
 
                 {{-- Left: Main Image Card --}}
@@ -132,7 +140,7 @@
                         </div>
                     </div>
 
-                    {{-- Dot indicator --}}
+                    {{-- Dot indicator bawah gambar --}}
                     <div class="flex items-center gap-2 mt-4">
                         <template x-for="(item, index) in beritaList" :key="index">
                             <button @click="activeSlide = index"
@@ -142,45 +150,68 @@
                     </div>
                 </div>
 
-                {{-- Right: Timeline List --}}
-                <div class="lg:col-span-6 grid grid-cols-12 gap-4 w-full relative">
-                    <div class="col-span-11 relative pl-6 lg:pl-8">
-                        <div class="absolute left-1.5 top-2 bottom-2 w-[3px] bg-[#0f2440] rounded-full opacity-20"></div>
-                        <div class="absolute left-1.5 top-2 w-[3px] bg-[#0f2440] rounded-full transition-all duration-500"
-                            :style="`height: ${(activeSlide / (beritaList.length - 1)) * 100}%`"></div>
+                {{-- Right: Timeline List (GARIS UTAMA IKUT MELUNCUR SEIRAMA KLIK JON ADY) --}}
+                <div class="lg:col-span-6 grid grid-cols-12 gap-4 w-full relative lg:aspect-[4/3] animate-fade-in">
 
-                        <div class="space-y-6">
-                            <template x-for="(item, index) in beritaList" :key="index">
-                                <div @click="activeSlide = index" class="relative pl-6 group cursor-pointer">
-                                    <div :class="activeSlide === index ? 'border-[#0f2440]' +
-                                        ' bg-white scale-110 ring-4 ring-blue-50' : 'border-gray-300 bg-white'"
-                                        class="absolute left-[-22px] top-1 w-4 h-4 rounded-full border-2 transition-all duration-300 z-10 flex items-center justify-center">
-                                        <div x-show="activeSlide === index" class="w-1.5 h-1.5 rounded-full bg-[#0f2440]">
+                    {{-- Boks Pembungkus List --}}
+                    <div class="col-span-11 relative h-full">
+                        {{-- Area Box Scroll Teks Berita (Padding left disesuaikan pl-10 untuk jalur rel internal) --}}
+                        <div class="w-full h-full overflow-y-auto pl-10 pr-2 flex flex-col scroll-smooth"
+                            style="scrollbar-width: none; -ms-overflow-style: none;">
+                            <div class="space-y-0 h-full">
+                                <template x-for="(item, index) in beritaList" :key="index">
+                                    <div @click="activeSlide = index"
+                                        class="w-full h-[33.33%] flex-shrink-0 flex flex-col justify-center relative group cursor-pointer border-b border-gray-100/50 last:border-0 py-2">
+
+                                        {{-- ─── TRICK SAKTI: SEGMEN GARIS DI DALAM LOOP (IKUT SCROLL & BERHENTI PAS DI TOMBOL AKTIF) ─── --}}
+                                        <div class="absolute left-[-23px] top-0 bottom-0 w-1.5 pointer-events-none flex flex-col overflow-hidden"
+                                            :class="index === 0 ? 'rounded-t-full' : (index === beritaList.length - 1 ?
+                                                'rounded-b-full' : '')">
+                                            {{-- Paruh Atas Segmen Garis --}}
+                                            <div class="w-full h-1/2 transition-colors duration-300"
+                                                :class="index <= activeSlide ? 'bg-[#0f2440]' : 'bg-slate-200'"></div>
+                                            {{-- Paruh Bawah Segmen Garis --}}
+                                            <div class="w-full h-1/2 transition-colors duration-300"
+                                                :class="index < activeSlide ? 'bg-[#0f2440]' : 'bg-slate-200'"></div>
                                         </div>
+
+                                        {{-- Tombol Bulat Indikator Menu Berita (Center Alignment Presisi di Nilai left-[-30px]) --}}
+                                        <div :class="activeSlide === index ?
+                                            'border-[#0f2440] bg-white scale-110 ring-4 ring-[#ff9f1c]/30' :
+                                            'border-gray-300 bg-white group-hover:border-[#0f2440]'"
+                                            class="absolute left-[-30px] top-1/2 -translate-y-1/2 w-5 h-5 rounded-full border-2 transition-all duration-300 z-10 flex items-center justify-center shadow-sm">
+                                            <div x-show="activeSlide === index"
+                                                class="w-2.5 h-2.5 rounded-full bg-[#0f2440]"></div>
+                                        </div>
+
+                                        {{-- Konten Teks --}}
+                                        <div class="text-left w-full">
+                                            <h3 :class="activeSlide === index ?
+                                                'text-[#0f2440] font-extrabold underline decoration-sky-400 decoration-2 underline-offset-4' :
+                                                'text-gray-400 font-bold group-hover:text-[#0f2440]'"
+                                                class="text-sm sm:text-base md:text-lg transition-all duration-300 leading-tight mb-1 line-clamp-1"
+                                                x-text="item.title"></h3>
+                                            <p class="text-gray-400 text-xs font-normal leading-normal mb-1 line-clamp-2"
+                                                x-text="item.subTitle"></p>
+                                            <span class="text-[10px] text-gray-400 flex items-center gap-1">
+                                                <span class="w-0.5 h-2.5 bg-[#ff9f1c]"></span>
+                                                Upload <span x-text="item.date" class="ml-1"></span>
+                                            </span>
+                                        </div>
+
                                     </div>
-                                    <div class="text-left w-full">
-                                        <h3 :class="activeSlide === index ?
-                                            'text-[#0f2440] font-extrabold underline decoration-sky-400 decoration-2 underline-offset-4' :
-                                            'text-gray-400 font-bold group-hover:text-[#0f2440]'"
-                                            class="text-base sm:text-lg transition-all duration-300 leading-tight mb-1"
-                                            x-text="item.title"></h3>
-                                        <p class="text-gray-400 text-xs sm:text-sm font-normal leading-normal mb-1"
-                                            x-text="item.subTitle"></p>
-                                        <span class="text-[10px] text-gray-400 flex items-center gap-1">
-                                            <span class="w-0.5 h-2.5 bg-[#ff9f1c]"></span>
-                                            Upload <span x-text="item.date" class="ml-1"></span>
-                                        </span>
-                                    </div>
-                                </div>
-                            </template>
+                                </template>
+                            </div>
                         </div>
                     </div>
 
-                    {{-- Scrollbar dekoratif --}}
-                    <div class="col-span-1 hidden lg:flex justify-end h-full pr-1">
-                        <div class="relative w-2 bg-gray-200 rounded-full h-full min-h-[220px] overflow-hidden">
-                            <div class="absolute w-full bg-[#0f2440] rounded-full h-20 transition-all duration-500"
-                                :style="`top: ${(activeSlide / (beritaList.length - 1)) * 60}%`"></div>
+                    {{-- Scrollbar Dekoratif Paling Kanan --}}
+                    <div class="col-span-1 hidden lg:flex justify-end h-full pl-2">
+                        <div
+                            class="relative w-4 bg-slate-100 border border-slate-200/50 rounded-full h-full overflow-hidden shadow-inner">
+                            <div class="absolute w-full bg-[#0f2440] rounded-full h-20 transition-all duration-500 shadow-md"
+                                :style="`top: ${beritaList.length > 1 ? (activeSlide / (beritaList.length - 1)) * 75 : 0}%`">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -415,33 +446,21 @@
         </div>
     </section>
 
-
     {{-- =====================================================================
          ALPINE.JS COMPONENTS
          ===================================================================== --}}
     <script>
-        function newsComponent() {
+        function newsComponent(laravelBerita) {
+            const defaultPlaceholder = [{
+                title: "Belum Ada Berita Terbaru, Dy!",
+                subTitle: "Silakan isi data berita utama dari dashboard control panel admin terlebih dahulu.",
+                date: "---",
+                image: "{{ asset('images/berita1.png') }}"
+            }];
+
             return {
                 activeSlide: 0,
-                beritaList: [{
-                        title: "Pilihan Bahasa Masyarakat Viqueque di Desa Oebelo",
-                        subTitle: "Studi Kasus Identitas Bahasa di Kalangan Komunitas Pengungsi Eks Timor Timur",
-                        date: "03-03-2026",
-                        image: "{{ asset('images/berita1.png') }}"
-                    },
-                    {
-                        title: "Pilihan Bahasa Masyarakat Viqueque di Desa Oebelo (Slide 2)",
-                        subTitle: "Studi Kasus Identitas Bahasa di Kalangan Komunitas Pengungsi Eks Timor Timur",
-                        date: "03-03-2026",
-                        image: "{{ asset('images/berita1.png') }}"
-                    },
-                    {
-                        title: "Pilihan Bahasa Masyarakat Viqueque di Desa Oebelo (Slide 3)",
-                        subTitle: "Studi Kasus Identitas Bahasa di Kalangan Komunitas Pengungsi Eks Timor Timur",
-                        date: "03-03-2026",
-                        image: "{{ asset('images/berita1.png') }}"
-                    }
-                ]
+                beritaList: laravelBerita && laravelBerita.length > 0 ? laravelBerita : defaultPlaceholder
             }
         }
 

@@ -39,86 +39,57 @@
                         Terbaru
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3"
                             stroke="currentColor"
-                            class="w-3 h-3 transform group-hover:translate-x-0.5 transition-transform text-[#ff9f1c] group-hover:text-[#0f2440]">
+                            class="w-3.5 h-3.5 transform group-hover:translate-x-0.5 transition-transform text-[#ff9f1c] group-hover:text-[#0f2440]">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                         </svg>
                     </button>
                 </div>
 
-                {{-- ===== DATA DUMMY ===== --}}
+                {{-- LOGIKA HITUNGAN HALAMAN CAROUSEL DARI DATA REAL DATABASE --}}
                 @php
-                    $penelitians = [
-                        [
-                            'gambar' => 'images/berita1.png',
-                            'judul' => 'Pilihan Bahasa Masyarakat Viqueque di Desa Oebelo',
-                            'sub' => 'Studi Kasus Identitas Bahasa di Kalangan Komunitas Pengungsi Eks Timor Timur',
-                        ],
-                        [
-                            'gambar' => 'images/berita1.png',
-                            'judul' => 'Revitalisasi Kesenian Tradisional Minangkabau di Era Digital',
-                            'sub' => 'Kajian Etnografi terhadap Pertunjukan Randai di Kota Padangpanjang',
-                        ],
-                        [
-                            'gambar' => 'images/berita1.png',
-                            'judul' => 'Transformasi Estetika Batik Tanah Liek dalam Konteks Pariwisata',
-                            'sub' => 'Analisis Visual dan Semiotika pada Produk Kerajinan Lokal Sumatera Barat',
-                        ],
-                        [
-                            'gambar' => 'images/berita1.png',
-                            'judul' => 'Pergeseran Fungsi Tari Piring dalam Upacara Adat Minangkabau',
-                            'sub' => 'Studi Komparatif antara Generasi Muda dan Generasi Tua di Solok',
-                        ],
-                        [
-                            'gambar' => 'images/berita1.png',
-                            'judul' => 'Dokumentasi Musik Tradisional Talempong sebagai Warisan Budaya',
-                            'sub' => 'Pendekatan Etnomusikologi dalam Pelestarian Alat Musik Daerah',
-                        ],
-                        [
-                            'gambar' => 'images/berita1.png',
-                            'judul' => 'Ekspresi Identitas Budaya Melalui Motif Songket Silungkang',
-                            'sub' => 'Perspektif Antropologi Seni dalam Komunitas Penenun di Sawah Lunto',
-                        ],
-                        [
-                            'gambar' => 'images/berita1.png',
-                            'judul' => 'Peran Seni Pertunjukan dalam Pemberdayaan Ekonomi Kreatif',
-                            'sub' => 'Studi Kasus Festival Budaya di Kabupaten Agam, Sumatera Barat',
-                        ],
-                        [
-                            'gambar' => 'images/berita1.png',
-                            'judul' => 'Kajian Makna Simbolik pada Arsitektur Rumah Gadang',
-                            'sub' => 'Interpretasi Ornamen dan Ragam Hias dalam Tradisi Visual Minangkabau',
-                        ],
-                        [
-                            'gambar' => 'images/berita1.png',
-                            'judul' => 'Adaptasi Sastra Lisan Kaba dalam Media Kontemporer',
-                            'sub' => 'Analisis Naratif dan Penerimaan Khalayak pada Platform Digital',
-                        ],
-                    ];
-                    $perPage = 3; // TESTING: 3 item per halaman → pagination langsung terlihat
-                    $total = count($penelitians);
-                    $totalPages = (int) ceil($total / $perPage);
+                    $perPage = 3; // Slot wajib per halaman grid
+                    $totalPenelitian = $penelitians->count();
+                    $totalPages = $totalPenelitian > 0 ? (int) ceil($totalPenelitian / $perPage) : 1;
                 @endphp
 
                 {{-- ===== CAROUSEL WRAPPER ===== --}}
                 <div id="carousel-wrapper">
 
-                    {{-- Halaman carousel --}}
-                    @for ($page = 0; $page < $totalPages; $page++)
-                        <div class="carousel-page {{ $page === 0 ? '' : 'hidden' }}" data-page="{{ $page }}">
+                    {{-- Bagi data riil database ke dalam chunk halaman per 3 item --}}
+                    @forelse ($penelitians->chunk($perPage) as $pageIndex => $chunk)
+                        <div class="carousel-page {{ $pageIndex === 0 ? '' : 'hidden' }}" data-page="{{ $pageIndex }}">
                             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-                                @foreach (array_slice($penelitians, $page * $perPage, $perPage) as $i => $item)
-                                    @php $isFirst = ($page === 0 && $i === 0); @endphp
-                                    <div
-                                        class="w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-xl bg-gray-900 relative
-                                            {{ $isFirst ? 'border-2 border-purple-600' : 'border border-gray-100 hover:shadow-lg' }}
-                                            cursor-pointer group transition-all duration-300">
+                                @foreach ($chunk as $i => $item)
+                                    @php $isFirst = ($pageIndex === 0 && $i === 0); @endphp
+
+                                    {{-- Kartu Link Aktif Nembak ke Detail Berdasarkan ID Database --}}
+                                    <a href="{{ route('detail.penelitian', $item->id) }}"
+                                        class="w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-xl bg-gray-900 relative block
+                                            {{ $isFirst ? 'border-2 border-[#ff9f1c]' : 'border border-gray-100 hover:shadow-2xl' }}
+                                            group transition-all duration-300 transform hover:-translate-y-1">
 
                                         <div
                                             class="absolute inset-0 bg-gradient-to-t from-[#0f2440]/95 via-transparent to-transparent z-10">
                                         </div>
 
-                                        <img src="{{ asset($item['gambar']) }}" alt="{{ $item['judul'] }}"
-                                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                        {{-- ─── FIX ENGINE: AMBIL FOTO INDEX KESATU [0] DARI DALAM DATA ARRAY JSON DATABASE ─── --}}
+                                        @php
+                                            $frontCoverPath = 'images/berita1.png';
+                                            if (
+                                                !empty($item->image) &&
+                                                is_array($item->image) &&
+                                                isset($item->image[0])
+                                            ) {
+                                                $frontCoverPath = 'storage/' . $item->image[0];
+                                            } elseif (!empty($item->image) && is_string($item->image)) {
+                                                // Pengaman data string lama jika lu belum sempat migrate:refresh
+                                                $frontCoverPath = 'storage/' . $item->image;
+                                            }
+                                        @endphp
+
+                                        <img src="{{ asset($frontCoverPath) }}" alt="{{ $item->judul }}"
+                                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                            onerror="this.src='{{ asset('images/berita1.png') }}'">
 
                                         <div class="absolute bottom-0 inset-x-0 p-5 z-20 text-left">
                                             <div class="flex items-start gap-1.5 mb-2">
@@ -128,12 +99,14 @@
                                                     <span class="w-1.5 h-1.5 bg-transparent"></span>
                                                     <span class="w-1.5 h-1.5 bg-[#ff9f1c] rounded-[1px]"></span>
                                                 </div>
-                                                <h3 class="text-white font-extrabold text-sm sm:text-base leading-snug">
-                                                    {{ $item['judul'] }}
+                                                <h3
+                                                    class="text-white font-extrabold text-sm sm:text-base leading-snug group-hover:text-[#ff9f1c] transition-colors line-clamp-2 text-left">
+                                                    {{ $item->judul }}
                                                 </h3>
                                             </div>
-                                            <p class="text-gray-300 text-[10px] sm:text-xs font-light pl-4 leading-normal">
-                                                {{ $item['sub'] }}
+                                            <p
+                                                class="text-gray-300 text-[10px] sm:text-xs font-light pl-4 leading-normal line-clamp-2 text-left">
+                                                {{ $item->deskripsi_singkat }}
                                             </p>
                                         </div>
 
@@ -146,11 +119,18 @@
                                                     d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
                                             </svg>
                                         </span>
-                                    </div>
+                                    </a>
                                 @endforeach
                             </div>
                         </div>
-                    @endfor
+                    @empty
+                        <div class="carousel-page" data-page="0">
+                            <div class="text-center py-12 text-gray-400 font-medium italic">
+                                Belum ada berkas riset penelitian resmi yang diterbitkan, Dy. Silakan isi melalui dashboard
+                                control panel admin.
+                            </div>
+                        </div>
+                    @endforelse
 
                 </div>
                 {{-- /CAROUSEL WRAPPER --}}
@@ -158,13 +138,10 @@
                 {{-- ===== PAGINATION + AKSEN ===== --}}
                 <div
                     class="flex flex-col sm:flex-row items-center justify-between gap-6 border-t border-gray-100 pt-8 relative">
-
-                    {{-- Spacer kiri --}}
                     <div class="hidden sm:block w-24"></div>
 
                     {{-- Pagination controls --}}
                     <div class="flex items-center gap-2 select-none" id="pagination-controls">
-
                         {{-- Prev --}}
                         <button id="btn-prev"
                             class="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center text-[#0f2440] hover:bg-[#0f2440] hover:text-white transition-all focus:outline-none shadow-sm disabled:opacity-30 disabled:cursor-not-allowed"
@@ -196,7 +173,6 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                             </svg>
                         </button>
-
                     </div>
 
                     {{-- Aksen gambar kanan --}}
@@ -204,12 +180,11 @@
                         <img src="{{ asset('images/icon/arrow-bold.png') }}" alt="Aksen"
                             class="w-36 h-36 object-contain transform -rotate-180 drop-shadow-md">
                     </div>
-
                 </div>
                 {{-- /PAGINATION --}}
 
             </div>
-        </section>
+    </div>
     </div>
 
     {{-- ===== CAROUSEL SCRIPT ===== --}}
@@ -226,11 +201,9 @@
             function goTo(page) {
                 if (page < 0 || page >= totalPages) return;
 
-                // Sembunyikan halaman aktif, tampilkan halaman baru
                 pages[currentPage].classList.add('hidden');
                 pages[page].classList.remove('hidden');
 
-                // Update style tombol nomor halaman
                 pageBtns[currentPage].classList.remove('bg-[#0f2440]', 'text-white');
                 pageBtns[currentPage].classList.add('text-gray-400', 'hover:bg-gray-100', 'hover:text-[#0f2440]');
 
@@ -239,26 +212,21 @@
 
                 currentPage = page;
 
-                // Update state disabled pada tombol prev/next
-                btnPrev.disabled = currentPage === 0;
-                btnNext.disabled = currentPage === totalPages - 1;
+                if (btnPrev) btnPrev.disabled = currentPage === 0;
+                if (btnNext) btnNext.disabled = currentPage === totalPages - 1;
 
-                // Scroll halus ke atas grid
                 document.getElementById('carousel-wrapper').scrollIntoView({
                     behavior: 'smooth',
                     block: 'start'
                 });
             }
 
-            // Tombol prev & next
-            btnPrev.addEventListener('click', () => goTo(currentPage - 1));
-            btnNext.addEventListener('click', () => goTo(currentPage + 1));
+            if (btnPrev) btnPrev.addEventListener('click', () => goTo(currentPage - 1));
+            if (btnNext) btnNext.addEventListener('click', () => goTo(currentPage + 1));
 
-            // Tombol nomor halaman
             pageBtns.forEach(btn => {
                 btn.addEventListener('click', () => goTo(parseInt(btn.dataset.target)));
             });
         })();
     </script>
-
 @endsection

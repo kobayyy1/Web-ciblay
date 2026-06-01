@@ -3,7 +3,6 @@
 @section('content')
     <div class="flex min-h-screen bg-gray-100 font-['Roboto']" style="font-family: 'Roboto', sans-serif;">
 
-        {{-- ===== SIDEBAR NAVIGASI ===== --}}
         <div class="w-64 bg-[#0f2440] text-white flex-shrink-0 hidden md:flex flex-col shadow-xl">
             <div class="p-6 border-b border-slate-700/50 flex items-center gap-3">
                 <div class="bg-[#ff9f1c] p-2 rounded-lg select-none">
@@ -27,15 +26,12 @@
             </div>
         </div>
 
-        {{-- ===== PANEL UTAMA KONTEN ===== --}}
         <div class="flex-1 flex flex-col min-w-0 overflow-x-hidden">
 
-            {{-- HEADER DASHBOARD --}}
             <header
                 class="bg-white h-16 border-b border-gray-200 flex items-center justify-between px-6 md:px-8 flex-shrink-0 shadow-sm">
                 <div class="flex items-center gap-4">
-                    <h2 class="text-xl font-black text-[#0f2440] uppercase tracking-tight"
-                        style="font-family: 'Roboto', sans-serif;">Dashboard Overview</h2>
+                    <h2 class="text-xl font-black text-[#0f2440] uppercase tracking-tight">Dashboard Overview</h2>
                 </div>
 
                 <div class="flex items-center gap-4">
@@ -44,7 +40,6 @@
                         <p class="text-[10px] text-gray-400 uppercase font-bold tracking-wider">Super Admin</p>
                     </div>
 
-                    {{-- TOMBOL LOGOUT AMAN METHOD POST --}}
                     <form action="{{ route('admin.logout') }}" method="POST" class="inline-block">
                         @csrf
                         <button type="submit"
@@ -64,15 +59,12 @@
                 </div>
             </header>
 
-            {{-- MAIN AREA KONTEN --}}
             <main class="flex-1 p-6 md:p-8 space-y-8 overflow-y-auto">
 
-                {{-- Card Welcome --}}
                 <div
                     class="bg-gradient-to-r from-[#0f2440] to-[#173761] p-6 rounded-3xl text-white shadow-md relative overflow-hidden">
                     <div class="relative z-10 space-y-1">
-                        <h3 class="text-2xl font-black uppercase tracking-tight" style="font-family: 'Roboto', sans-serif;">
-                            Selamat Datang Kembali, Admin!</h3>
+                        <h3 class="text-2xl font-black uppercase tracking-tight">Selamat Datang Kembali, Admin!</h3>
                         <p class="text-sm text-slate-300 font-light max-w-xl">
                             Melalui panel ini Anda dapat mengelola seluruh aset digital penelitian, pengabdian masyarakat,
                             serta data publikasi institut dengan mudah dan cepat.
@@ -87,14 +79,12 @@
                     </div>
                 </div>
 
-                {{-- Grid Statistik Singkat --}}
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                     <div
                         class="bg-white p-6 rounded-2xl border-l-4 border-[#ff9f1c] shadow-sm flex items-center justify-between">
                         <div class="space-y-1">
                             <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Total Penelitian</p>
-                            <h4 class="text-3xl font-black text-[#0f2440]" style="font-family: 'Roboto', sans-serif;">124
-                            </h4>
+                            <h4 class="text-3xl font-black text-[#0f2440]">{{ $totalPenelitian ?? 0 }}</h4>
                         </div>
                         <div class="p-3 bg-orange-50 text-[#ff9f1c] rounded-xl">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -108,8 +98,7 @@
                         class="bg-white p-6 rounded-2xl border-l-4 border-[#0f2440] shadow-sm flex items-center justify-between">
                         <div class="space-y-1">
                             <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Berita Aktif</p>
-                            <h4 class="text-3xl font-black text-[#0f2440]" style="font-family: 'Roboto', sans-serif;">42
-                            </h4>
+                            <h4 class="text-3xl font-black text-[#0f2440]">{{ $totalBerita ?? 0 }}</h4>
                         </div>
                         <div class="p-3 bg-blue-50 text-[#0f2440] rounded-xl">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -123,8 +112,7 @@
                         class="bg-white p-6 rounded-2xl border-l-4 border-emerald-500 shadow-sm flex items-center justify-between">
                         <div class="space-y-1">
                             <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Unduhan Jurnal</p>
-                            <h4 class="text-3xl font-black text-[#0f2440]" style="font-family: 'Roboto', sans-serif;">
-                                1,829</h4>
+                            <h4 class="text-3xl font-black text-[#0f2440]">{{ $totalUnduhan ?? 0 }}</h4>
                         </div>
                         <div class="p-3 bg-emerald-50 text-emerald-500 rounded-xl">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -138,8 +126,7 @@
                         class="bg-white p-6 rounded-2xl border-l-4 border-indigo-500 shadow-sm flex items-center justify-between">
                         <div class="space-y-1">
                             <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Pengabdian</p>
-                            <h4 class="text-3xl font-black text-[#0f2440]" style="font-family: 'Roboto', sans-serif;">68
-                            </h4>
+                            <h4 class="text-3xl font-black text-[#0f2440]">{{ $totalPengabdian ?? 0 }}</h4>
                         </div>
                         <div class="p-3 bg-indigo-50 text-indigo-500 rounded-xl">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -150,20 +137,19 @@
                     </div>
                 </div>
 
-                {{-- Tabel Konten Terbaru --}}
                 <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
                     <div
                         class="p-6 border-b border-gray-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                         <div>
-                            <h3 class="text-lg font-black text-[#0f2440] uppercase tracking-tight"
-                                style="font-family: 'Roboto', sans-serif;">Aktivitas Konten Terbaru</h3>
-                            <p class="text-xs text-gray-400 font-normal">Data penelitian atau berita yang baru saja
-                                ditambahkan oleh tim LPPM.</p>
+                            <h3 class="text-lg font-black text-[#0f2440] uppercase tracking-tight">Aktivitas Konten Terbaru
+                            </h3>
+                            <p class="text-xs text-gray-400 font-normal">Data publikasi riset ilmiah kebudayaan dan seni
+                                yang baru saja ditambahkan.</p>
                         </div>
-                        <button
-                            class="bg-[#0f2440] text-white hover:bg-slate-800 font-bold text-xs px-4 py-2 rounded-xl uppercase tracking-wider transition-all select-none">
+                        <a href="{{ route('admin.penelitian.index') }}"
+                            class="bg-[#0f2440] text-white hover:bg-slate-800 font-bold text-xs px-4 py-2 rounded-xl uppercase tracking-wider transition-all select-none text-center">
                             Kelola Semua Data
-                        </button>
+                        </a>
                     </div>
 
                     <div class="w-full overflow-x-auto">
@@ -172,42 +158,37 @@
                                 <tr
                                     class="bg-gray-50 text-[11px] font-bold uppercase tracking-wider text-gray-400 border-b border-gray-100">
                                     <th class="py-4 px-6">Konten / Judul</th>
-                                    <th class="py-4 px-6">Kategori</th>
+                                    <th class="py-4 px-6">Peneliti Utama</th>
                                     <th class="py-4 px-6">Tanggal Upload</th>
                                     <th class="py-4 px-6">Status</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-100 text-sm font-normal text-gray-600">
-                                <tr class="hover:bg-gray-50/80 transition-colors">
-                                    <td class="py-4 px-6 font-medium text-gray-800 max-w-xs md:max-w-md truncate">
-                                        Pilihan Bahasa Masyarakat Viqueque di Desa Oebelo
-                                    </td>
-                                    <td class="py-4 px-6">
-                                        <span
-                                            class="inline-block bg-orange-100 text-[#ff9f1c] font-bold text-[10px] px-2.5 py-1 rounded-full uppercase">Penelitian</span>
-                                    </td>
-                                    <td class="py-4 px-6 text-xs font-mono">28-05-2026</td>
-                                    <td class="py-4 px-6">
-                                        <span class="inline-flex items-center gap-1.5 text-emerald-600 font-bold text-xs">
-                                            <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Published
-                                        </span>
-                                    </td>
-                                </tr>
-                                <tr class="hover:bg-gray-50/80 transition-colors">
-                                    <td class="py-4 px-6 font-medium text-gray-800 max-w-xs md:max-w-md truncate">
-                                        Rapat Koordinasi Sekretariat UTBK - SNBT 2026 LPPM
-                                    </td>
-                                    <td class="py-4 px-6">
-                                        <span
-                                            class="inline-block bg-blue-100 text-[#0f2440] font-bold text-[10px] px-2.5 py-1 rounded-full uppercase">Berita</span>
-                                    </td>
-                                    <td class="py-4 px-6 text-xs font-mono">20-05-2026</td>
-                                    <td class="py-4 px-6">
-                                        <span class="inline-flex items-center gap-1.5 text-emerald-600 font-bold text-xs">
-                                            <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Published
-                                        </span>
-                                    </td>
-                                </tr>
+                                @forelse($latestPenelitians as $activity)
+                                    <tr class="hover:bg-gray-50/80 transition-colors">
+                                        <td class="py-4 px-6 font-medium text-gray-800 max-w-xs md:max-w-md truncate">
+                                            {{ $activity->judul }}
+                                        </td>
+                                        <td class="py-4 px-6 font-semibold text-[#0f2440]">
+                                            {{ $activity->nama_peneliti }}
+                                        </td>
+                                        <td class="py-4 px-6 text-xs font-mono">
+                                            {{ $activity->tanggal_penelitian ? $activity->tanggal_penelitian->format('d-m-Y') : $activity->created_at->format('d-m-Y') }}
+                                        </td>
+                                        <td class="py-4 px-6">
+                                            <span
+                                                class="inline-flex items-center gap-1.5 text-emerald-600 font-bold text-xs">
+                                                <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Published
+                                            </span>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="4" class="py-12 text-center text-gray-400 italic font-medium">
+                                            Belum ada data aktivitas penelitian terbaru di sistem.
+                                        </td>
+                                    </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>

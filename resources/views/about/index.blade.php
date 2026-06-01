@@ -35,8 +35,6 @@
 
                 <div class="w-full lg:w-[400px] flex-shrink-0">
                     <div class="flex flex-row bg-[#0f2440] rounded-[2.5rem] overflow-hidden shadow-2xl h-[450px] relative">
-
-                        {{-- PILLAR LPPM SIDEBAR --}}
                         <div class="w-20 sm:w-24 flex-shrink-0 flex justify-center py-6 overflow-visible">
                             <div
                                 class="bg-[#ff9f1c] w-9 rounded-full h-full flex flex-col items-center justify-between py-8 relative overflow-visible shadow-inner border-r border-orange-400/30">

@@ -10,8 +10,8 @@
     </a>
 
     {{-- MENU DATA PENELITIAN --}}
-    <a href="#"
-        class="flex items-center gap-3 px-4 py-3 {{ request()->routeIs('admin.penelitian.*') ? 'bg-[#ff9f1c] text-[#0f2440] font-bold shadow-md' : 'text-slate-300 hover:text-white hover:bg-slate-800/50 font-medium' }} rounded-xl transition-all group">
+    <a href="{{ route('admin.penelitian.index') }}"
+        class="flex items-center gap-3 px-4 py-3 {{ request()->routeIs('admin.penelitian.index') ? 'bg-[#ff9f1c] text-[#0f2440] font-bold shadow-md' : 'text-slate-300 hover:text-white hover:bg-slate-800/50 font-medium' }} rounded-xl transition-all group">
         <svg class="w-5 h-5 opacity-70 group-hover:opacity-100" fill="none" stroke="currentColor"
             viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
