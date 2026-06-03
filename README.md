@@ -1,7 +1,7 @@
 # 🏛️ LPPM ISI Padangpanjang Portal
 
 <p align="center">
-  <img src="images/prvw.jpg" alt="LPPM ISI Padangpanjang Portal Preview" width="800">
+<img width="746" height="466" alt="prvw" src="https://github.com/user-attachments/assets/32d4c922-d7b3-4042-9db3-3d37f040b922" />
 </p>
 
 <p align="center">
