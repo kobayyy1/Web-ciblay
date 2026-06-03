@@ -89,7 +89,7 @@
                         <div class="p-3 bg-orange-50 text-[#ff9f1c] rounded-xl">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                                    d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" />
                             </svg>
                         </div>
                     </div>
@@ -97,7 +97,7 @@
                     <div
                         class="bg-white p-6 rounded-2xl border-l-4 border-[#0f2440] shadow-sm flex items-center justify-between">
                         <div class="space-y-1">
-                            <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Berita Aktif</p>
+                            <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Total Berita</p>
                             <h4 class="text-3xl font-black text-[#0f2440]">{{ $totalBerita ?? 0 }}</h4>
                         </div>
                         <div class="p-3 bg-blue-50 text-[#0f2440] rounded-xl">
@@ -111,13 +111,13 @@
                     <div
                         class="bg-white p-6 rounded-2xl border-l-4 border-emerald-500 shadow-sm flex items-center justify-between">
                         <div class="space-y-1">
-                            <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Unduhan Jurnal</p>
-                            <h4 class="text-3xl font-black text-[#0f2440]">{{ $totalUnduhan ?? 0 }}</h4>
+                            <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Total Media</p>
+                            <h4 class="text-3xl font-black text-[#0f2440]">{{ $totalMedia ?? 0 }}</h4>
                         </div>
                         <div class="p-3 bg-emerald-50 text-emerald-500 rounded-xl">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                             </svg>
                         </div>
                     </div>
@@ -125,13 +125,13 @@
                     <div
                         class="bg-white p-6 rounded-2xl border-l-4 border-indigo-500 shadow-sm flex items-center justify-between">
                         <div class="space-y-1">
-                            <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Pengabdian</p>
-                            <h4 class="text-3xl font-black text-[#0f2440]">{{ $totalPengabdian ?? 0 }}</h4>
+                            <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Total Informasi</p>
+                            <h4 class="text-3xl font-black text-[#0f2440]">{{ $totalInformasi ?? 0 }}</h4>
                         </div>
                         <div class="p-3 bg-indigo-50 text-indigo-500 rounded-xl">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                             </svg>
                         </div>
                     </div>
@@ -173,7 +173,7 @@
                                             {{ $activity->nama_peneliti }}
                                         </td>
                                         <td class="py-4 px-6 text-xs font-mono">
-                                            {{ $activity->tanggal_penelitian ? $activity->tanggal_penelitian->format('d-m-Y') : $activity->created_at->format('d-m-Y') }}
+                                            {{ $activity->tanggal_penelitian ? \Carbon\Carbon::parse($activity->tanggal_penelitian)->format('d-m-Y') : $activity->created_at->format('d-m-Y') }}
                                         </td>
                                         <td class="py-4 px-6">
                                             <span

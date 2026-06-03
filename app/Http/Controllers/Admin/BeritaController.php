@@ -32,16 +32,14 @@ class BeritaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            // TAMBAHKAN 'unique:beritas,title' DI SINI
             'title'      => 'required|string|max:255|unique:beritas,title',
             'content'    => 'required',
             'image'      => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'start_date' => 'nullable|date',
             'end_date'   => 'nullable|date|after_or_equal:start_date',
         ], [
-            // TAMBAHKAN PESAN CUSTOM BIAR INPUT FORM-NYA INTERAKTIF
-            'title.unique'            => 'Judul berita ini sudah ada, Jon! Ganti judul lain biar slug-nya gak bentrok.',
-            'end_date.after_or_equal' => 'Tanggal selesai aktif tidak boleh mendahului tanggal mulai, Jon!',
+            'title.unique'            => 'Judul berita ini sudah ada, Ganti judul lain biar slug-nya gak bentrok.',
+            'end_date.after_or_equal' => 'Tanggal selesai aktif tidak boleh mendahului tanggal mulai,  ',
         ]);
 
         $data = $request->only('title', 'content', 'start_date', 'end_date');
@@ -82,7 +80,6 @@ class BeritaController extends Controller
         $data = $request->only('title', 'content', 'start_date', 'end_date');
 
         if ($request->hasFile('image')) {
-            // Hapus gambar lama dari storage jika user upload gambar baru
             if ($berita->image) {
                 Storage::disk('public')->delete($berita->image);
             }
@@ -91,7 +88,7 @@ class BeritaController extends Controller
 
         $berita->update($data);
 
-        return redirect()->route('admin.berita.index')->with('status', 'Berita berhasil diperbarui, Jon!');
+        return redirect()->route('admin.berita.index')->with('status', 'Berita berhasil diperbarui,  ');
     }
 
     /**
@@ -101,13 +98,12 @@ class BeritaController extends Controller
     {
         $berita = Berita::findOrFail($id);
 
-        // Hapus berkas file gambar dari folder storage public sebelum datanya dihapus
         if ($berita->image) {
             Storage::disk('public')->delete($berita->image);
         }
 
         $berita->delete();
 
-        return redirect()->route('admin.berita.index')->with('status', 'Berita berhasil dihapus permanent, Jon!');
+        return redirect()->route('admin.berita.index')->with('status', 'Berita berhasil dihapus permanent,  ');
     }
 }

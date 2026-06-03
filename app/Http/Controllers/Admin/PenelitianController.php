@@ -25,7 +25,7 @@ class PenelitianController extends Controller
         $request->validate([
             'judul' => 'required|string|max:255',
             'nama_peneliti' => 'required|string|max:255',
-            'avatar' => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // UPDATED
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg|max:2048', 
             'images' => 'nullable|array',
             'images.*' => 'image|mimes:jpeg,png,jpg|max:2048',
             'deskripsi_singkat' => 'required|string|max:500',
@@ -36,12 +36,10 @@ class PenelitianController extends Controller
 
         $data = $request->all();
 
-        // Handle Upload Avatar Peneliti
         if ($request->hasFile('avatar')) {
             $data['avatar'] = $request->file('avatar')->store('penelitian/avatar', 'public');
         }
 
-        // Handle Upload Banyak Berkas Dokumentasi Foto Riset
         if ($request->hasFile('images')) {
             $uploadedImages = [];
             foreach ($request->file('images') as $file) {
@@ -72,7 +70,7 @@ class PenelitianController extends Controller
         $request->validate([
             'judul' => 'required|string|max:255',
             'nama_peneliti' => 'required|string|max:255',
-            'avatar' => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // UPDATED
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'images' => 'nullable|array',
             'images.*' => 'image|mimes:jpeg,png,jpg|max:2048',
             'deskripsi_singkat' => 'required|string|max:500',
@@ -119,12 +117,10 @@ class PenelitianController extends Controller
     {
         $penelitian = Penelitian::findOrFail($id);
 
-        // Hapus file avatar dari storage fisik
         if ($penelitian->avatar) {
             Storage::disk('public')->delete($penelitian->avatar);
         }
 
-        // Hapus kumpulan file gambar riset
         if (!empty($penelitian->image) && is_array($penelitian->image)) {
             foreach ($penelitian->image as $imgFile) {
                 Storage::disk('public')->delete($imgFile);

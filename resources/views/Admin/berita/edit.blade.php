@@ -28,7 +28,6 @@
             </div>
         </div>
 
-        {{-- ===== 2. PANEL UTAMA KONTEN ===== --}}
         <div class="flex-1 flex flex-col min-w-0 overflow-x-hidden">
             <main class="flex-1 p-6 md:p-8 space-y-6 overflow-y-auto">
 
@@ -48,9 +47,8 @@
                     <form action="{{ route('admin.berita.update', $berita->id) }}" method="POST"
                         enctype="multipart/form-data" class="space-y-6">
                         @csrf
-                        @method('PUT') {{-- WAJIB PAKAI INI UNTUK UPDATE DATA --}}
+                        @method('PUT') 
 
-                        {{-- Judul Berita --}}
                         <div class="space-y-1.5">
                             <label for="title"
                                 class="text-sm font-bold text-[#0f2440] uppercase tracking-wider block">Judul Berita</label>
@@ -63,12 +61,10 @@
                             @enderror
                         </div>
 
-                        {{-- Cover Berita / Gambar --}}
                         <div class="space-y-3">
                             <label class="text-sm font-bold text-[#0f2440] uppercase tracking-wider block">Cover Berita /
                                 Gambar</label>
 
-                            {{-- Preview Gambar Lama Jika Ada --}}
                             @if ($berita->image)
                                 <div class="space-y-1">
                                     <span class="text-xs text-gray-400 block font-medium">Cover Saat Ini:</span>
@@ -89,7 +85,6 @@
                             @enderror
                         </div>
 
-                        {{-- Pilihan Masa Aktif Berita (Grid 2 Kolom) --}}
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                             <div class="space-y-1.5">
                                 <label for="start_date"
@@ -115,7 +110,6 @@
                             </div>
                         </div>
 
-                        {{-- Isi Berita --}}
                         <div class="space-y-1.5">
                             <label for="content"
                                 class="text-sm font-bold text-[#0f2440] uppercase tracking-wider block">Isi Berita</label>
@@ -127,7 +121,6 @@
                             @enderror
                         </div>
 
-                        {{-- Button Submit --}}
                         <div class="pt-4 flex justify-start">
                             <button type="submit"
                                 class="bg-[#0f2440] text-white font-bold text-xs px-8 py-3.5 rounded-xl uppercase tracking-widest hover:bg-slate-800 transition-all shadow-md">

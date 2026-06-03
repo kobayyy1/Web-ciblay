@@ -3,7 +3,6 @@
 @section('content')
     <div class="flex min-h-screen bg-gray-100 font-['Roboto']" style="font-family: 'Roboto', sans-serif;">
 
-        {{-- ===== 1. KOTAK UTAMA SIDEBAR ===== --}}
         <div class="w-64 bg-[#0f2440] text-white flex-shrink-0 hidden md:flex flex-col shadow-xl">
             <div class="p-6 border-b border-slate-700/50 flex items-center gap-3">
                 <div class="bg-[#ff9f1c] p-2 rounded-lg select-none">
@@ -25,11 +24,9 @@
             </div>
         </div>
 
-        {{-- ===== 2. PANEL UTAMA FORM ===== --}}
         <div class="flex-1 flex flex-col min-w-0 overflow-x-hidden">
             <main class="flex-1 p-6 md:p-8 space-y-6 overflow-y-auto">
 
-                {{-- Global Error Validation Notification --}}
                 @if ($errors->any())
                     <div
                         class="p-4 bg-rose-50 border-l-4 border-rose-500 rounded-r-xl text-rose-800 text-sm font-medium shadow-sm text-left">
@@ -50,14 +47,12 @@
                     </div>
                 </div>
 
-                {{-- Form Element Container --}}
                 <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden p-6 sm:p-8">
                     <form action="{{ route('admin.penelitian.update', $penelitian->id) }}" method="POST"
                         enctype="multipart/form-data" class="space-y-6 text-left">
                         @csrf
                         @method('PUT')
 
-                        {{-- Input Judul --}}
                         <div class="flex flex-col gap-1.5">
                             <label for="judul" class="text-xs font-bold uppercase tracking-wider text-[#0f2440]">Judul
                                 Penelitian / Riset</label>
@@ -125,7 +120,6 @@
                             </div>
                         </div>
 
-                        {{-- Input PDF --}}
                         <div class="flex flex-col gap-1.5">
                             <label for="file_pdf" class="text-xs font-bold uppercase tracking-wider text-[#0f2440]">Ganti
                                 File Dokumen PDF (Maks 10MB - Opsional)</label>
@@ -140,7 +134,6 @@
                                 class="w-full rounded-xl border border-gray-200 p-2.5 text-sm bg-slate-50 focus:outline-none file:mr-4 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-rose-600 file:text-white hover:file:bg-opacity-90 cursor-pointer text-gray-400">
                         </div>
 
-                        {{-- Input Deskripsi Singkat --}}
                         <div class="flex flex-col gap-1.5">
                             <label for="deskripsi_singkat"
                                 class="text-xs font-bold uppercase tracking-wider text-[#0f2440]">Deskripsi Preview
@@ -149,7 +142,6 @@
                                 class="w-full rounded-xl border border-gray-200 p-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0f2440] focus:border-transparent transition-all resize-none font-medium text-gray-700">{{ old('deskripsi_singkat', $penelitian->deskripsi_singkat) }}</textarea>
                         </div>
 
-                        {{-- Input Deskripsi Lengkap --}}
                         <div class="flex flex-col gap-1.5">
                             <label for="deskripsi_lengkap"
                                 class="text-xs font-bold uppercase tracking-wider text-[#0f2440]">Isi Pembahasan Lengkap
@@ -158,7 +150,6 @@
                                 class="w-full rounded-xl border border-gray-200 p-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0f2440] focus:border-transparent transition-all font-medium text-gray-700">{{ old('deskripsi_lengkap', $penelitian->deskripsi_lengkap) }}</textarea>
                         </div>
 
-                        {{-- Buttons Control Form --}}
                         <div class="pt-4 flex items-center justify-end gap-3 border-t border-gray-100">
                             <a href="{{ route('admin.penelitian.index') }}"
                                 class="px-5 py-3 rounded-xl border border-gray-200 text-xs font-bold text-gray-400 hover:bg-gray-50 transition-colors">Batal</a>

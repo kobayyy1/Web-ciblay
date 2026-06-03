@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Berita; // Wajib import model Berita di atas, Dy
+use App\Models\Berita;
+use App\Models\Information;
+use App\Models\Penelitian;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -21,8 +23,10 @@ class InfoController extends Controller
                     ->orWhere('end_date', '>=', $today);
             })
             ->latest()
-            ->get();   
+            ->get();
+        $informations = Information::latest()->get();
+        $penelitians = Penelitian::latest()->get();
 
-        return view('information.index', compact('beritas'));
+        return view('information.index', compact('beritas', 'informations', 'penelitians'));
     }
 }

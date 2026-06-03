@@ -19,8 +19,7 @@
                     </div>
                 </div>
                 <div class="relative inline-block">
-                    <h1 class="text-5xl md:text-6xl font-black text-[#0f2440] tracking-tight uppercase"
-                        style="font-family: 'Roboto', sans-serif;">
+                    <h1 class="text-5xl md:text-6xl font-black text-[#0f2440] tracking-tight uppercase">
                         About
                     </h1>
                     <div class="absolute -bottom-2 left-0 w-full h-1 border-b-2 border-dashed border-[#0f2440] opacity-30">
@@ -40,7 +39,7 @@
                                 class="bg-[#ff9f1c] w-9 rounded-full h-full flex flex-col items-center justify-between py-8 relative overflow-visible shadow-inner border-r border-orange-400/30">
                                 <div class="flex items-start justify-center pt-2 w-full relative overflow-visible">
                                     <h2 class="text-white font-black text-4xl tracking-widest uppercase drop-shadow-[2px_4px_3px_rgba(0,0,0,0.4)] absolute left-[60%] z-10 whitespace-nowrap"
-                                        style="writing-mode: vertical-rl; font-family: 'Roboto', sans-serif;">
+                                        style="writing-mode: vertical-rl;">
                                         LPPM
                                     </h2>
                                 </div>
@@ -55,9 +54,9 @@
                             </div>
                         </div>
 
-                        {{-- PHOTO PROFILE FRAME --}}
                         <div class="flex-1 relative bg-gray-800">
-                            <img src="{{ asset('images/foto-ketua.png') }}" alt="Dr. Yusril, S.S., M.Sn."
+                            <img src="{{ $about && $about->image ? asset('storage/' . $about->image) : asset('images/foto-ketua.png') }}"
+                                alt="{{ $about->name ?? 'Dr. Yusril, S.S., M.Sn.' }}"
                                 class="absolute inset-0 w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500">
                             <div class="absolute top-4 right-4 opacity-20">
                                 <div class="grid grid-cols-4 gap-1">
@@ -74,36 +73,30 @@
                 <div class="flex-1 space-y-8">
 
                     <div class="space-y-2">
-                        <h2 class="text-3xl md:text-4xl font-black text-[#0f2440] tracking-tight uppercase"
-                            style="font-family: 'Roboto', sans-serif;">
-                            Dr. Yusril, S.S., M.Sn.
+                        <h2 class="text-3xl md:text-4xl font-black text-[#0f2440] tracking-tight uppercase">
+                            {{ $about->name ?? 'Dr. Yusril, S.S., M.Sn.' }}
                         </h2>
                         <span
                             class="inline-block bg-[#0f2440] text-white text-[10px] font-bold px-4 py-1 rounded-full uppercase tracking-widest">
-                            Ketua
+                            {{ $about->title ?? 'Ketua' }}
                         </span>
                     </div>
 
                     <div class="prose prose-slate max-w-none">
-                        <h3 class="text-xl font-black text-[#0f2440] uppercase tracking-tight mb-4 leading-snug"
-                            style="font-family: 'Roboto', sans-serif;">
-                            LPPM ISI Padang Panjang (Lembaga Penelitian Dan Pengabdian kepada Masyarakat)
+                        <h3 class="text-xl font-black text-[#0f2440] uppercase tracking-tight mb-4 leading-snug">
+                            {{ $about->headline ?? 'LPPM ISI Padang Panjang (Lembaga Penelitian Dan Pengabdian kepada Masyarakat)' }}
                         </h3>
                         <p class="text-gray-600 leading-relaxed text-justify font-normal">
-                            lembaga di bawah Institut Seni Indonesia (ISI) Padangpanjang yang bertugas mengoordinasikan,
-                            melaksanakan, memantau, dan mengevaluasi kegiatan penelitian dan pengabdian kepada masyarakat.
+                            {{ $about->description ?? 'lembaga di bawah Institut Seni Indonesia (ISI) Padangpanjang yang bertugas mengoordinasikan, melaksanakan, memantau, dan mengevaluasi kegiatan penelitian dan pengabdian kepada masyarakat.' }}
                         </p>
                     </div>
 
                     <div class="bg-gray-50 p-8 rounded-3xl border-l-4 border-[#ff9f1c] shadow-sm">
-                        <h3 class="text-2xl font-black text-[#0f2440] uppercase tracking-tight mb-4"
-                            style="font-family: 'Roboto', sans-serif;">
+                        <h3 class="text-2xl font-black text-[#0f2440] uppercase tracking-tight mb-4">
                             Visi dan Misi
                         </h3>
                         <p class="text-gray-600 leading-relaxed text-justify italic font-normal">
-                            Menjadi pusat unggulan penelitian dan pengabdian masyarakat yang bermutu, relevan, serta berdaya
-                            saing, sejalan dengan visi ISI Padangpanjang menghasilkan ilmuwan dan entrepreneur berbasis seni
-                            budaya tahun 2044.
+                            {{ $about->vision_mission ?? 'Menjadi pusat unggulan penelitian dan pengabdian masyarakat yang bermutu, relevan, serta berdaya saing, sejalan dengan visi ISI Padangpanjang menghasilkan ilmuwan dan entrepreneur berbasis seni budaya tahun 2044.' }}
                         </p>
                     </div>
 

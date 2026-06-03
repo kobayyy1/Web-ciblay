@@ -3,7 +3,6 @@
 @section('content')
     <div class="flex min-h-screen bg-gray-100 font-['Roboto']" style="font-family: 'Roboto', sans-serif;">
 
-        {{-- ===== 1. KOTAK UTAMA SIDEBAR ===== --}}
         <div class="w-64 bg-[#0f2440] text-white flex-shrink-0 hidden md:flex flex-col shadow-xl">
             <div class="p-6 border-b border-slate-700/50 flex items-center gap-3">
                 <div class="bg-[#ff9f1c] p-2 rounded-lg select-none">
@@ -29,7 +28,6 @@
             </div>
         </div>
 
-        {{-- ===== 2. PANEL UTAMA KONTEN ===== --}}
         <div class="flex-1 flex flex-col min-w-0 overflow-x-hidden">
             <main class="flex-1 p-6 md:p-8 space-y-6 overflow-y-auto">
 
@@ -49,7 +47,6 @@
                         class="space-y-6">
                         @csrf
 
-                        {{-- Judul Berita --}}
                         <div class="space-y-1.5">
                             <label for="title"
                                 class="text-sm font-bold text-[#0f2440] uppercase tracking-wider block">Judul Berita</label>
@@ -61,7 +58,6 @@
                             @enderror
                         </div>
 
-                        {{-- Cover Berita --}}
                         <div class="space-y-1.5">
                             <label class="text-sm font-bold text-[#0f2440] uppercase tracking-wider block">Cover Berita /
                                 Gambar</label>
@@ -73,7 +69,6 @@
                             @enderror
                         </div>
 
-                        {{-- ===== PILIHAN MASA AKTIF BERITA (GRID 2 KOLOM) ===== --}}
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                             <div class="space-y-1.5">
                                 <label for="start_date"
@@ -109,7 +104,6 @@
                             @enderror
                         </div>
 
-                        {{-- Button Submit --}}
                         <div class="pt-4 flex justify-start">
                             <button type="submit"
                                 class="bg-[#0f2440] text-white font-bold text-xs px-8 py-3.5 rounded-xl uppercase tracking-widest hover:bg-slate-800 transition-all shadow-md">

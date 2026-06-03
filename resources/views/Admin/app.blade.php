@@ -17,6 +17,24 @@
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
         }
+
+        /* BANNER CLEANER ANTI-GOOGLE */
+        .goog-te-banner-frame.skiptranslate,
+        .goog-te-banner-frame {
+            display: none !important;
+        }
+
+        body {
+            top: 0px !important;
+        }
+
+        iframe.goog-te-banner-frame {
+            display: none !important;
+        }
+
+        .goog-te-balloon-frame {
+            display: none !important;
+        }
     </style>
 </head>
 
@@ -26,6 +44,38 @@
         @yield('content')
     </main>
 
+    {{-- =====================================================================
+         ENGINE AUTO-TRANSLATE GHAIB (BACKGROUND SYNC LISTENER)
+         ===================================================================== --}}
+    <div id="google_translate_element" style="display: none !important;"></div>
+
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'id',
+                includedLanguages: 'id,en,ar,ja,ko,zh-CN',
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let savedLang = localStorage.getItem('goog_lang') || 'id';
+
+            if (savedLang !== 'id') {
+                setTimeout(() => {
+                    let selectBox = document.querySelector('.goog-te-combo');
+                    if (selectBox) {
+                        selectBox.value = savedLang;
+                        selectBox.dispatchEvent(new Event('change'));
+                    }
+                }, 700);
+            }
+        });
+    </script>
 </body>
 
 </html>

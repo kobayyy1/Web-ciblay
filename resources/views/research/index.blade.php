@@ -45,24 +45,20 @@
                     </button>
                 </div>
 
-                {{-- LOGIKA HITUNGAN HALAMAN CAROUSEL DARI DATA REAL DATABASE --}}
                 @php
-                    $perPage = 3; // Slot wajib per halaman grid
+                    $perPage = 9;
                     $totalPenelitian = $penelitians->count();
                     $totalPages = $totalPenelitian > 0 ? (int) ceil($totalPenelitian / $perPage) : 1;
                 @endphp
 
-                {{-- ===== CAROUSEL WRAPPER ===== --}}
                 <div id="carousel-wrapper">
 
-                    {{-- Bagi data riil database ke dalam chunk halaman per 3 item --}}
                     @forelse ($penelitians->chunk($perPage) as $pageIndex => $chunk)
                         <div class="carousel-page {{ $pageIndex === 0 ? '' : 'hidden' }}" data-page="{{ $pageIndex }}">
                             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
                                 @foreach ($chunk as $i => $item)
                                     @php $isFirst = ($pageIndex === 0 && $i === 0); @endphp
 
-                                    {{-- Kartu Link Aktif Nembak ke Detail Berdasarkan ID Database --}}
                                     <a href="{{ route('detail.penelitian', $item->id) }}"
                                         class="w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-xl bg-gray-900 relative block
                                             {{ $isFirst ? 'border-2 border-[#ff9f1c]' : 'border border-gray-100 hover:shadow-2xl' }}
@@ -72,7 +68,6 @@
                                             class="absolute inset-0 bg-gradient-to-t from-[#0f2440]/95 via-transparent to-transparent z-10">
                                         </div>
 
-                                        {{-- ─── FIX ENGINE: AMBIL FOTO INDEX KESATU [0] DARI DALAM DATA ARRAY JSON DATABASE ─── --}}
                                         @php
                                             $frontCoverPath = 'images/berita1.png';
                                             if (
@@ -82,7 +77,6 @@
                                             ) {
                                                 $frontCoverPath = 'storage/' . $item->image[0];
                                             } elseif (!empty($item->image) && is_string($item->image)) {
-                                                // Pengaman data string lama jika lu belum sempat migrate:refresh
                                                 $frontCoverPath = 'storage/' . $item->image;
                                             }
                                         @endphp
@@ -133,16 +127,12 @@
                     @endforelse
 
                 </div>
-                {{-- /CAROUSEL WRAPPER --}}
 
-                {{-- ===== PAGINATION + AKSEN ===== --}}
                 <div
                     class="flex flex-col sm:flex-row items-center justify-between gap-6 border-t border-gray-100 pt-8 relative">
                     <div class="hidden sm:block w-24"></div>
 
-                    {{-- Pagination controls --}}
                     <div class="flex items-center gap-2 select-none" id="pagination-controls">
-                        {{-- Prev --}}
                         <button id="btn-prev"
                             class="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center text-[#0f2440] hover:bg-[#0f2440] hover:text-white transition-all focus:outline-none shadow-sm disabled:opacity-30 disabled:cursor-not-allowed"
                             disabled>
@@ -152,19 +142,16 @@
                             </svg>
                         </button>
 
-                        {{-- Page number buttons --}}
                         <div class="flex items-center gap-1.5 text-xs font-bold font-mono" id="page-numbers">
                             @for ($p = 0; $p < $totalPages; $p++)
                                 <button
-                                    class="page-btn w-8 h-8 rounded-lg transition-colors
-                                       {{ $p === 0 ? 'bg-[#0f2440] text-white' : 'text-gray-400 hover:bg-gray-100 hover:text-[#0f2440]' }}"
+                                    class="page-btn w-8 h-8 rounded-lg transition-colors {{ $p === 0 ? 'bg-[#0f2440] text-white' : 'text-gray-400 hover:bg-gray-100 hover:text-[#0f2440]' }}"
                                     data-target="{{ $p }}">
                                     {{ str_pad($p + 1, 2, '0', STR_PAD_LEFT) }}
                                 </button>
                             @endfor
                         </div>
 
-                        {{-- Next --}}
                         <button id="btn-next"
                             class="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center text-[#0f2440] hover:bg-[#0f2440] hover:text-white transition-all focus:outline-none shadow-sm {{ $totalPages <= 1 ? 'disabled:opacity-30 disabled:cursor-not-allowed' : '' }}"
                             {{ $totalPages <= 1 ? 'disabled' : '' }}>
@@ -175,19 +162,16 @@
                         </button>
                     </div>
 
-                    {{-- Aksen gambar kanan --}}
                     <div class="flex items-center justify-center select-none self-end lg:self-auto">
                         <img src="{{ asset('images/icon/arrow-bold.png') }}" alt="Aksen"
                             class="w-36 h-36 object-contain transform -rotate-180 drop-shadow-md">
                     </div>
                 </div>
-                {{-- /PAGINATION --}}
 
             </div>
-    </div>
+        </section>
     </div>
 
-    {{-- ===== CAROUSEL SCRIPT ===== --}}
     <script>
         (function() {
             const totalPages = {{ $totalPages }};

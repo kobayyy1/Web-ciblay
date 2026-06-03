@@ -12,8 +12,8 @@ return new class extends Migration
             $table->id();
             $table->string('judul');
             $table->string('nama_peneliti');
-            $table->string('avatar')->nullable(); // UPDATED: foto_ketua resmi pensiun diganti avatar
-            $table->text('image')->nullable(); // Menyimpan array JSON kumpulan foto riset
+            $table->string('avatar')->nullable();
+            $table->text('image')->nullable(); 
             $table->text('deskripsi_singkat');
             $table->longText('deskripsi_lengkap');
             $table->string('file_pdf')->nullable();

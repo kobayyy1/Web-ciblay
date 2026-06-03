@@ -19,10 +19,8 @@
 
 <body class="h-screen flex font-['Roboto'] select-none overflow-hidden" style="font-family:'Roboto',sans-serif;">
 
-    {{-- ===== PANEL KIRI (Judul + Hero) ===== --}}
     <div class="flex-1 flex flex-col min-w-0 relative">
 
-        {{-- Header: badge + judul + garis --}}
         <div class="px-14 pt-12 pb-0">
             <div class="flex items-center gap-3 mb-1 select-none">
                 <img src="{{ asset('images/icon-notice.png') }}" alt="Notice" class="h-6 object-contain">
@@ -47,17 +45,14 @@
             </div>
         </div>
 
-        {{-- Hero image mengisi sisa ruang --}}
         <div class="flex-1 flex items-center justify-center min-h-0 px-10 py-6">
             <img src="{{ asset('images/hero-isometric.png') }}" alt="Hero Isometrik LPPM"
                 class="max-w-full max-h-full object-contain">
         </div>
     </div>
 
-    {{-- ===== PANEL FORM (Kanan) ===== --}}
     <div class="w-[480px] flex-shrink-0 flex flex-col justify-center px-14 py-12">
 
-        {{-- Aksen atas: icon arrow + doc + garis (rata kanan) --}}
         <div class="mb-8">
             <div class="flex items-center justify-end gap-3 mb-2">
                 <img src="{{ asset('images/icon-arrow.png') }}" alt="Aksen" class="w-4 h-4 object-contain">
@@ -72,13 +67,11 @@
             </div>
         </div>
 
-        {{-- Heading --}}
         <div class="mb-8">
             <h2 class="text-4xl font-black text-[#0f2440] tracking-tight leading-none">Welcome Back!</h2>
             <p class="text-sm text-gray-400 font-light mt-3">Log in in to start explore documents</p>
         </div>
 
-        {{-- Form --}}
         <form action="{{ route('admin.login.submit') }}" method="POST" class="space-y-5">
             @csrf
 
@@ -109,7 +102,6 @@
                 @enderror
             </div>
 
-            {{-- Remember me + Forget Password dalam 1 baris --}}
             <div class="flex items-center justify-between pt-1">
                 <label class="flex items-center gap-2 cursor-pointer text-sm text-gray-500 hover:text-gray-700">
                     <input type="checkbox" name="remember"

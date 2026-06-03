@@ -8,15 +8,11 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('beritas', function (Blueprint $table) {
+        Schema::create('informations', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('slug')->unique();
-            $table->text('content');
-
-            $table->date('start_date')->nullable();
-            $table->date('end_date')->nullable();
-
+            $table->string('deskripsi_singkat', 500);
+            $table->text('deskripsi_lengkap');
             $table->string('image')->nullable();
             $table->timestamps();
         });
@@ -24,8 +20,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::table('beritas', function (Blueprint $table) {
-            $table->dropColumn(['start_date', 'end_date']);
-        });
+        Schema::dropIfExists('informations');
     }
 };

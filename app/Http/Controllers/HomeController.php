@@ -3,17 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Berita;
-use Carbon\Carbon;
+use App\Models\Penelitian;
+use App\Models\Media;
+use App\Models\Information;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
-    /**
-     * Menampilkan Halaman Utama (Frontpage) Website
-     */
     public function index()
     {
-        $today = \Carbon\Carbon::today()->toDateString();
+        $today = Carbon::today()->toDateString();
 
         $beritas = Berita::where(function ($query) use ($today) {
             $query->whereNull('start_date')
@@ -31,6 +31,16 @@ class HomeController extends Controller
                 return $item;
             });
 
-        return view('home', compact('beritas'));
+        $penelitians = Penelitian::latest()->get();
+        $medias = Media::latest()->get(); 
+        $informations = Information::latest()->get();
+
+        return view('home', compact('beritas', 'penelitians', 'medias', 'informations'));
+    }
+    public function mediaDetail($id)
+    {
+        $media = \App\Models\Media::findOrFail($id);
+
+        return view('media.detail', compact('media'));
     }
 }

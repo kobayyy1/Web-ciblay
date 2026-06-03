@@ -33,7 +33,7 @@
 
                 @if (session('success'))
                     <div
-                        class="bg-emerald-50 text-emerald-600 p-4 rounded-xl text-xs font-bold uppercase border border-emerald-100 shadow-sm flex items-center gap-2 animate-pulse">
+                        class="bg-emerald-50 text-emerald-600 p-4 rounded-xl text-xs font-bold uppercase border border-emerald-100 shadow-sm flex items-center gap-2 animate-fade-in">
                         <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
                                 d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -43,17 +43,16 @@
                 @endif
 
                 <div class="flex items-center justify-between border-b border-gray-200 pb-4">
-                    <div class="text-left">
-                        <h2 class="text-2xl font-black text-[#0f2440] uppercase tracking-tight">Kelola Penelitian</h2>
-                        <p class="text-xs text-gray-400">Daftar seluruh dokumen riset publikasi ilmiah & solusi industri
-                            nasional LPPM.</p>
+                    <div>
+                        <h2 class="text-2xl font-black text-[#0f2440] uppercase tracking-tight">Kelola About</h2>
+                        <p class="text-xs text-gray-400">Daftar seluruh profil pimpinan, berkas visi, dan misi tim LPPM.</p>
                     </div>
-                    <a href="{{ route('admin.penelitian.create') }}"
+                    <a href="{{ route('admin.about.create') }}"
                         class="bg-[#0f2440] text-white hover:bg-slate-800 font-bold text-xs px-5 py-3 rounded-xl uppercase tracking-wider transition-all shadow-md flex items-center gap-2 select-none">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4" />
                         </svg>
-                        Tambah Penelitian
+                        Tambah Data About
                     </a>
                 </div>
 
@@ -62,70 +61,44 @@
                         <table class="w-full text-left border-collapse">
                             <thead>
                                 <tr
-                                    class="bg-gray-50 text-[11px] font-bold uppercase tracking-wider text-gray-400 border-b border-gray-100">
-                                    <th class="py-4 px-6 w-20 text-center">No</th>
+                                    class="bg-gray-50 text-[11px] font-bold uppercase tracking-wider text-gray-400 border-b border-gray-100 whitespace-nowrap">
                                     <th class="py-4 px-6 w-24">Cover</th>
-                                    <th class="py-4 px-6">Informasi Penelitian</th>
-                                    <th class="py-4 px-6">Tanggal Publikasi</th>
-                                    <th class="py-4 px-6 text-center w-36">Berkas Dokumen</th>
+                                    <th class="py-4 px-6">Pimpinan / Jabatan</th>
+                                    <th class="py-4 px-6">Headline Lembaga</th>
                                     <th class="py-4 px-6 text-center w-40">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-100 text-sm font-normal text-gray-600">
-                                @forelse ($penelitians as $index => $item)
+                                @forelse ($abouts as $item)
                                     <tr class="hover:bg-gray-50/80 transition-colors">
-                                        <td class="py-4 px-6 text-center font-mono font-bold text-gray-400">
-                                            {{ str_pad($penelitians->firstItem() + $index, 2, '0', STR_PAD_LEFT) }}
-                                        </td>
                                         <td class="py-4 px-6">
                                             <div
                                                 class="w-16 h-12 rounded-lg overflow-hidden bg-gray-100 border border-gray-200 shadow-sm flex items-center justify-center">
-                                                @php
-                                                    $coverImg = 'images/berita1.png';
-                                                    if (
-                                                        !empty($item->image) &&
-                                                        is_array($item->image) &&
-                                                        isset($item->image[0])
-                                                    ) {
-                                                        $coverImg = 'storage/' . $item->image[0];
-                                                    }
-                                                @endphp
-                                                <img src="{{ asset($coverImg) }}" class="w-full h-full object-cover"
-                                                    onerror="this.src='{{ asset('images/berita1.png') }}'">
+                                                @if ($item->image)
+                                                    <img src="{{ asset('storage/' . $item->image) }}" alt="Cover"
+                                                        class="w-full h-full object-cover">
+                                                @else
+                                                    <img src="{{ asset('images/foto-ketua.png') }}" alt="Placeholder"
+                                                        class="w-full h-full object-cover opacity-50">
+                                                @endif
                                             </div>
                                         </td>
 
-                                        <td class="py-4 px-6 text-left max-w-xs md:max-w-sm">
+                                        <td class="py-4 px-6 font-medium text-gray-800 max-w-xs md:max-w-sm">
                                             <div class="truncate text-base font-bold text-[#0f2440] mb-0.5">
-                                                {{ $item->judul }}
-                                            </div>
-                                            <div class="text-xs font-bold text-[#ff9f1c] mb-1">
-                                                Peneliti: {{ $item->nama_peneliti }}
-                                            </div>
-                                            <p class="text-xs text-gray-400 line-clamp-1 font-light">
-                                                {{ $item->deskripsi_singkat }}
-                                            </p>
+                                                {{ $item->name }}</div>
+                                            <span class="text-xs text-gray-400 font-mono">{{ $item->title }}</span>
                                         </td>
 
-                                        <td class="py-4 px-6 text-xs text-gray-500 font-medium">
-                                            {{ $item->tanggal_penelitian ? $item->tanggal_penelitian->format('d M Y') : '---' }}
+                                        <td class="py-4 px-6 text-gray-500 max-w-xs truncate">
+                                            {{ $item->headline }}
                                         </td>
 
-                                        <td class="py-4 px-6 text-center">
-                                            @if ($item->file_pdf)
-                                                <a href="{{ asset('storage/' . $item->file_pdf) }}" target="_blank"
-                                                    class="inline-flex items-center gap-1 bg-rose-50 text-rose-600 font-bold text-[10px] px-2.5 py-1.5 rounded-lg border border-rose-100 hover:bg-rose-100 transition-colors uppercase tracking-wide">
-                                                    PDF RISET
-                                                </a>
-                                            @else
-                                                <span class="text-xs text-gray-300 italic">Kosong</span>
-                                            @endif
-                                        </td>
                                         <td class="py-4 px-6 text-center whitespace-nowrap">
                                             <div class="flex items-center justify-center gap-1">
-                                                <a href="{{ route('admin.penelitian.edit', $item->id) }}"
+                                                <a href="{{ route('admin.about.edit', $item->id) }}"
                                                     class="p-2 text-blue-600 hover:bg-blue-50 rounded-xl transition-all"
-                                                    title="Edit Penelitian">
+                                                    title="Edit About">
                                                     <svg class="w-5 h-5" fill="none" stroke="currentColor"
                                                         viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -133,15 +106,15 @@
                                                             d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                                     </svg>
                                                 </a>
-                                                <form action="{{ route('admin.penelitian.destroy', $item->id) }}"
-                                                    method="POST"
-                                                    onsubmit="return confirm('Yakin mau hapus permanen data riset ini, Dy?')"
+
+                                                <form action="{{ route('admin.about.destroy', $item->id) }}" method="POST"
+                                                    onsubmit="return confirm('Yakin mau hapus data about ini, Jon?')"
                                                     class="inline-block">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit"
                                                         class="p-2 text-red-600 hover:bg-red-50 rounded-xl transition-all"
-                                                        title="Hapus Penelitian">
+                                                        title="Hapus About">
                                                         <svg class="w-5 h-5" fill="none" stroke="currentColor"
                                                             viewBox="0 0 24 24">
                                                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -155,8 +128,9 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="6" class="py-12 text-center text-gray-400 italic font-medium">
-                                            Belum ada berkas riset penelitian publikasi.
+                                        <td colspan="4" class="py-12 text-center text-gray-400 italic font-medium">
+                                            Belum ada dokumentasi data About yang tersimpan, Jon. Klik "Tambah Data About"
+                                            di atas buat mengisi data.
                                         </td>
                                     </tr>
                                 @endforelse
@@ -164,9 +138,9 @@
                         </table>
                     </div>
 
-                    @if ($penelitians->hasPages())
+                    @if ($abouts->hasPages())
                         <div class="p-6 border-t border-gray-100 bg-gray-50/50">
-                            {{ $penelitians->links() }}
+                            {{ $abouts->links() }}
                         </div>
                     @endif
                 </div>

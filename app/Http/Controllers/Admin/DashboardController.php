@@ -4,25 +4,26 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Penelitian;
-use App\Models\Berita; // <--- 1. PASTIKAN MODEL BERITA LU DI-IMPORT DI SINI
-use Illuminate\Http\Request;
+use App\Models\Berita;
+use App\Models\Media;
+use App\Models\Information; 
 
 class DashboardController extends Controller
 {
     public function index()
     {
         $totalPenelitian = Penelitian::count();
-        $totalBerita = Berita::count(); 
+        $totalBerita = Berita::count();
+        $totalMedia = Media::count();
+        $totalInformasi = Information::count();
 
         $latestPenelitians = Penelitian::latest()->take(5)->get();
-        $totalUnduhan = 0;
-        $totalPengabdian = 0;
 
         return view('admin.dashboard', compact(
             'totalPenelitian',
             'totalBerita',
-            'totalUnduhan',
-            'totalPengabdian',
+            'totalMedia',
+            'totalInformasi',
             'latestPenelitians'
         ));
     }

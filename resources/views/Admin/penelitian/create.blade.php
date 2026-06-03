@@ -3,7 +3,6 @@
 @section('content')
     <div class="flex min-h-screen bg-gray-100 font-['Roboto']" style="font-family: 'Roboto', sans-serif;">
 
-        {{-- ===== Sidebar ===== --}}
         <div class="w-64 bg-[#0f2440] text-white flex-shrink-0 hidden md:flex flex-col shadow-xl">
             <div class="p-6 border-b border-slate-700/50 flex items-center gap-3">
                 <div class="bg-[#ff9f1c] p-2 rounded-lg select-none">
@@ -25,7 +24,6 @@
             </div>
         </div>
 
-        {{-- ===== Main Content ===== --}}
         <div class="flex-1 flex flex-col min-w-0 overflow-x-hidden">
             <main class="flex-1 p-6 md:p-8 space-y-6 overflow-y-auto">
 
@@ -84,7 +82,6 @@
                         </div>
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                            {{-- Input Avatar Peneliti (UPDATED ID & NAME) --}}
                             <div class="flex flex-col gap-1.5">
                                 <label for="avatar"
                                     class="text-xs font-bold uppercase tracking-wider text-[#0f2440]">Upload Kartu Avatar
