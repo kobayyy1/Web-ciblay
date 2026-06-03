@@ -25,5 +25,5 @@ Sistem Informasi Terpusat **Lembaga Penelitian dan Pengabdian kepada Masyarakat 
 
 1. **Clone Repositori:**
    ```bash
-   git clone [https://github.com/username/nama-repo-lu.git](https://github.com/username/nama-repo-lu](https://github.com/kobayyy1/lppm-isi-padangpanjang.git)
+   git clone [https://github.com/kobayyy1/lppm-isi-padangpanjang.git]
    cd nama-repo-lu
